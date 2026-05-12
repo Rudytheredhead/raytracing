@@ -12,7 +12,7 @@ bool Kula::sprawdz_trafienie(const Wektor3D & kierunek, const Wektor3D &kamera, 
     if (delta <0) return false;
     
 
-    float delta_pierwiastek = std::sqrtf(delta);
+    float delta_pierwiastek = std::sqrt(delta);
     float t = (-b-delta_pierwiastek)/(2.0f *a);
     if (t<t_min && t>t_max){
         t = (-b+delta_pierwiastek)/(2.0f *a);

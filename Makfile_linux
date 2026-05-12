@@ -1,0 +1,2 @@
+raytracing: main.cpp Bryly.cpp Wektor3D.cpp Matematyka.cpp
+	g++ main.cpp Bryly.cpp Wektor3D.cpp Matematyka.cpp -o raytracing -lsfml-graphics -lsfml-window -lsfml-system -O3
