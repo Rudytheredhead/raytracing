@@ -1,0 +1,3 @@
+-podzielenia ekranu na kawałki i zrobionie kilku watkow
+-monto carlo
+-fabryka obiektow
