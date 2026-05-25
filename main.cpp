@@ -9,10 +9,13 @@
 #include <memory>
 #include<iostream>
 #include <algorithm>
+#include <chrono>
+#include <cmath>
 
 void obliczenie_kolorow(std::vector<sf::Uint8> &pixels,
     std::mutex &pixels_mutex,
     Wektor3D& kamera,
+    std::mutex &kamera_mutex,
     Wektor3D & cel,
     Wektor3D& gora,
     Wektor3D& swiatlo,
@@ -23,14 +26,19 @@ void obliczenie_kolorow(std::vector<sf::Uint8> &pixels,
 
 ){
     std::vector<sf::Uint8> pixels_copy(DLUGOSC*DLUGOSC*4,0);
+    Wektor3D kamera_copy;
     WynikZdarzenia wyniki;
 
     while(is_running){
+
         
         
-       
+        {
+            std::lock_guard<std::mutex> lock(kamera_mutex);
+            kamera_copy = kamera;
+        }
     
-        Uklad_wspolrzednych uklad = obliczanie_ukladu_wspolrzednych( kamera, cel,gora);
+        Uklad_wspolrzednych uklad = obliczanie_ukladu_wspolrzednych( kamera_copy, cel,gora);
         std::fill(pixels_copy.begin(), pixels_copy.end(), 0.0f);
 
 
@@ -40,11 +48,11 @@ void obliczenie_kolorow(std::vector<sf::Uint8> &pixels,
                 bool czy_cos_zostalo_trafione = false;
                 Wektor3D kierunek = oblicz_kierunek_promienia(x,y,odleglosc_od_ekranu, uklad);
                 for(const auto& obiekt:obiekty){
-                    if( obiekt->sprawdz_trafienie(kierunek,kamera,wyniki, 0.001f,wyniki.t  )) czy_cos_zostalo_trafione = true;
+                    if( obiekt->sprawdz_trafienie(kierunek,kamera_copy,wyniki, 0.001f,wyniki.t  )) czy_cos_zostalo_trafione = true;
                 }
                 
                 if (czy_cos_zostalo_trafione){
-                    cieniowanie(wyniki,przod, kamera);
+                    cieniowanie(wyniki,przod, kamera_copy);
                     Wektor3D kolor = wyniki.kolor;
                     int idx =  (y * DLUGOSC + x) * 4;
                     pixels_copy[idx] = kolor.x();
@@ -86,6 +94,8 @@ int main() {
     std::mutex pixels_mutex;
     std::vector<sf::Uint8> pixels_copy(DLUGOSC*DLUGOSC*4,0);
     std::atomic<bool> is_running{true};
+    Wektor3D kamera_copy;
+    std::mutex kamera_mutex;
 
 
 
@@ -102,13 +112,29 @@ int main() {
     przod.normalizuj();
     float odleglosc_od_ekranu = 1.0f;
 
-    float predkosc = 0.1f;
+    float predkosc_chodzenia = 5.0f;
+    Wektor3D predkosc_wektor(0.0f,0.0f,0.0f);
+    
+
+    auto poprzedniCzas = std::chrono::high_resolution_clock::now();
+    float deltaTime = 0.0f;
+    float sens_myszki = 0.001f;
+    float obrot_na_boki=0.0f;
+    float obrot_gora_dol=0.0f;
+    float dx = 0.0f;
+    float dy = 0.0f;
+
+    sf::Mouse::setPosition(sf::Vector2i(DLUGOSC/2, DLUGOSC/2), window);
+    window.setMouseCursorVisible(false);
+
+
     
 
     std::thread watek(obliczenie_kolorow,
     std::ref(pixels),
     std::ref(pixels_mutex),
     std::ref(kamera),
+    std::ref(kamera_mutex),
     std::ref(cel),
     std::ref(gora),
     std::ref(swiatlo),
@@ -129,29 +155,59 @@ int main() {
             }
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) window.close();
         }
+
+
+        auto obecnyCzas = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<float> roznica = obecnyCzas - poprzedniCzas;
+        deltaTime = roznica.count();
+        poprzedniCzas = obecnyCzas;
         
       
 
-        przod = cel - kamera;
+        Wektor3D przod(
+            -std::sin(obrot_na_boki),
+            0.0f,
+            -std::cos(obrot_na_boki)
+        );
         przod.normalizuj();
         Wektor3D prawo = przod%gora;
         prawo.normalizuj();
 
+        Wektor3D przesuniecie (0.0f,0.0f,0.0f);
+
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            kamera = kamera + predkosc*prawo;
-            cel = cel +predkosc*prawo;
+            przesuniecie = przesuniecie + predkosc_chodzenia*deltaTime*prawo;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            kamera = kamera - predkosc*prawo;
-            cel = cel - predkosc*prawo;
+            przesuniecie = przesuniecie - predkosc_chodzenia*deltaTime*prawo;
+
         }        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            kamera = kamera + predkosc*przod;
-            cel = cel +predkosc*przod;
+            przesuniecie = przesuniecie + predkosc_chodzenia*deltaTime*przod;
         }        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            kamera = kamera - predkosc*przod;
-            cel = cel - predkosc*przod;
+            przesuniecie = przesuniecie - predkosc_chodzenia*deltaTime*przod;
         }
+
+        kamera_copy = kamera_copy + przesuniecie;
+
+        if (window.hasFocus()){
+            sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
+            dx = -(mouse_pos.x-DLUGOSC/2);
+            dy = mouse_pos.y-DLUGOSC/2;
+            sf::Mouse::setPosition(sf::Vector2i(DLUGOSC/2,DLUGOSC/2),window);
+            
+        }
+
+
+        obrot_na_boki += dx*sens_myszki;
+        obrot_gora_dol =std::clamp(obrot_gora_dol- dy*sens_myszki,-1.55f,1.55f);
+        Wektor3D kierunek_kamery(
+            -std::cos(obrot_gora_dol)*std::sin(obrot_na_boki),
+            -std::sin(obrot_gora_dol),
+            -std::cos(obrot_gora_dol)*std::cos(obrot_na_boki));
+        cel = kamera_copy +kierunek_kamery;
+        dx = 0.0f;
+        dy = 0.0f;
 
         {
             std::lock_guard<std::mutex> lock(pixels_mutex);
@@ -159,6 +215,12 @@ int main() {
             //pixels_copy = pixels;
           
         }
+        {
+            std::lock_guard<std::mutex> lock(kamera_mutex);
+            kamera = kamera_copy;
+        }
+
+
         texture.update(pixels_copy.data());
 
 
