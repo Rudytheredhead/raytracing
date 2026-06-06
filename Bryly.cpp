@@ -45,6 +45,26 @@ bool Kula::sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, fl
 
     return true;
 }
-void sprawdz_kolizje(Wektor3D &posPostaci, float promienPostacis, const std::vector<Obiekt3D>obikety ){
-//kolizja postaci kulami (skopiuj z gpu)
+void Kula::kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci){
+    Wektor3D roznica = pozPostaci - srodek_;
+    float suma_promieni = promien_+promienPostaci;
+
+    float odleglosc_kwadrat  = roznica.modul2();
+    float suma_promieni_kwadrat = suma_promieni*suma_promieni ;
+
+    if(odleglosc_kwadrat<suma_promieni_kwadrat){
+        float odleglosc = roznica.modul();
+        float glebokosc = suma_promieni - odleglosc;
+
+        if (odleglosc>0.0001f){
+            Wektor3D wektor_normalny(
+                roznica.x()/odleglosc,
+                roznica.y()/odleglosc,
+                roznica.z()/odleglosc
+            );
+            pozPostaci = pozPostaci + glebokosc*wektor_normalny;
+            
+
+        }
+    }
 }

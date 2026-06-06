@@ -248,10 +248,13 @@ int main() {
     
     float odleglosc_od_ekranu = 1.0f;
     float predkosc_chodzenia = 5.0f;
+    Wektor3D wektor_predkosci;
+    Wektor3D grawitacja(0.0f,-9.81f, 0.0f);
+    bool czy_stoi_na_ziemi = true; 
 
     auto poprzedniCzas = std::chrono::high_resolution_clock::now();
     float deltaTime = 0.0f;
-    float sens_myszki = 0.001f;
+    float sens_myszki = 0.003f;
     float obrot_na_boki = 0.0f;
     float obrot_gora_dol = 0.0f;
     float dx = 0.0f;
@@ -334,11 +337,32 @@ int main() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
             przesuniecie = przesuniecie - predkosc_chodzenia * deltaTime * przod_ruchu;
         }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && czy_stoi_na_ziemi) {
+            wektor_predkosci = wektor_predkosci +Wektor3D(0.0f,10.0f,0.0f);
+            
+        }
+        if(!czy_stoi_na_ziemi){
+            wektor_predkosci = wektor_predkosci + deltaTime*grawitacja;
+        }
         
   
         
-
+        przesuniecie = przesuniecie + deltaTime*wektor_predkosci;
         kamera_copy = kamera_copy + przesuniecie;
+        czy_stoi_na_ziemi = false;
+        if (kamera_copy.y()<0.0f){
+            kamera_copy.set_y(0.0f);
+            czy_stoi_na_ziemi = true;
+            wektor_predkosci.set_y(0.0f);
+
+        }
+        
+        
+        if (przesuniecie.modul2()>0.0f){
+            for (const auto  &obiekt:obiekty){
+                obiekt->kolizja_z_postacia(kamera_copy, ROZMIAR_POSTACI);
+            }
+        }
 
 
 

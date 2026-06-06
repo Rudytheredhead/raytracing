@@ -30,6 +30,10 @@ public:
     friend std::istream& operator >> (std::istream& is, Wektor3D& wektor);
     friend Wektor3D operator * (float scalar, const Wektor3D& wektor);
     void normalizuj();
+    void set_x(float x){x_ = x;};
+    void set_y(float y){y_ = y;};
+    void set_z(float z){z_ = z;};
+
 };
 
 // Zastepstwo dla funkcji mix z GLSL
