@@ -1,2 +1,2 @@
 raytracing.exe: main.cpp Bryly.cpp Wektor3D.cpp Matematyka.cpp
-	g++ -std=c++20 main.cpp Bryly.cpp Wektor3D.cpp Matematyka.cpp -o raytracing.exe -lsfml-graphics -lsfml-window -lsfml-system -O3
+	g++ -std=c++20 main.cpp Bryly.cpp Wektor3D.cpp Matematyka.cpp -o raytracing.exe -lsfml-graphics -lsfml-window -lsfml-system -O3 -march=native -ffast-math

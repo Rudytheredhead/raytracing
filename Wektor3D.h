@@ -1,6 +1,7 @@
 #ifndef A_h
 #define A_h
 #include <iostream>
+#include <cmath> // Konieczne do działania std::sqrt()
 
 class Wektor3D {
 private:
@@ -13,12 +14,11 @@ public:
     Wektor3D operator +(const Wektor3D& wektor) const;
     Wektor3D operator -(const Wektor3D& wektor) const;
     
-    // Dodane funkcjonalnosci wzorowane na GLSL
-    Wektor3D przemnoz(const Wektor3D& wektor) const; // mnozenie (x*x, y*y, z*z)
+    Wektor3D przemnoz(const Wektor3D& wektor) const;
     Wektor3D operator /(const Wektor3D& wektor) const;
     Wektor3D operator /(float scalar) const;
     Wektor3D operator +(float scalar) const;
-    Wektor3D odbij(const Wektor3D& normalna) const; // reflect() z GLSL
+    Wektor3D odbij(const Wektor3D& normalna) const;
     
     float modul() const;
     float modul2() const;
@@ -34,5 +34,84 @@ public:
 
 // Zastepstwo dla funkcji mix z GLSL
 Wektor3D mieszaj(const Wektor3D& x, const Wektor3D& y, float a);
+
+
+// =========================================================================
+// DOKŁADNE KOPIE FUNKCJI Z PLIKU Wektor3D.cpp (Z DODANYM SŁOWEM 'inline')
+// =========================================================================
+
+inline Wektor3D::Wektor3D(float x, float y, float z) : x_(x), y_(y), z_(z) {}
+
+inline bool Wektor3D::operator==(const Wektor3D& wektor) const {
+    return (x_ == wektor.x_) && (y_ == wektor.y_) && (z_ == wektor.z_);
+}
+
+inline float Wektor3D::operator*(const Wektor3D& wektor) const {
+    return x_ * wektor.x_ + y_ * wektor.y_ + z_ * wektor.z_;
+}
+
+inline Wektor3D Wektor3D::operator%(const Wektor3D& wektor) const {
+    return Wektor3D(y_ * wektor.z_ - z_ * wektor.y_, z_ * wektor.x_ - x_ * wektor.z_, x_ * wektor.y_ - y_ * wektor.x_);
+}
+
+inline Wektor3D Wektor3D::operator+(const Wektor3D& wektor) const {
+    return Wektor3D(x_ + wektor.x_, y_ + wektor.y_, z_ + wektor.z_);
+}
+
+inline Wektor3D Wektor3D::operator-(const Wektor3D& wektor) const {
+    return Wektor3D(x_ - wektor.x_, y_ - wektor.y_, z_ - wektor.z_);
+}
+
+inline Wektor3D Wektor3D::przemnoz(const Wektor3D& wektor) const {
+    return Wektor3D(x_ * wektor.x_, y_ * wektor.y_, z_ * wektor.z_);
+}
+
+inline Wektor3D Wektor3D::operator/(const Wektor3D& wektor) const {
+    return Wektor3D(x_ / wektor.x_, y_ / wektor.y_, z_ / wektor.z_);
+}
+
+inline Wektor3D Wektor3D::operator/(float scalar) const {
+    return Wektor3D(x_ / scalar, y_ / scalar, z_ / scalar);
+}
+
+inline Wektor3D Wektor3D::operator+(float scalar) const {
+    return Wektor3D(x_ + scalar, y_ + scalar, z_ + scalar);
+}
+
+inline Wektor3D Wektor3D::odbij(const Wektor3D& normalna) const {
+    float dot_val = (*this) * normalna;
+    return (*this) - (2.0f * dot_val) * normalna;
+}
+
+inline float Wektor3D::modul() const {
+    return std::sqrt(x_ * x_ + y_ * y_ + z_ * z_);
+}
+
+inline float Wektor3D::modul2() const {
+    return x_ * x_ + y_ * y_ + z_ * z_;
+}
+
+inline Wektor3D operator*(float scalar, const Wektor3D& wektor) {
+    return Wektor3D(scalar * wektor.x_, scalar * wektor.y_, scalar * wektor.z_);
+}
+
+inline float Wektor3D::x() const { return x_; }
+inline float Wektor3D::y() const { return y_; }
+inline float Wektor3D::z() const { return z_; }
+
+inline void Wektor3D::normalizuj(){
+    float dl = modul();
+    x_ /= dl;
+    y_ /= dl;
+    z_ /= dl;
+}
+
+inline Wektor3D mieszaj(const Wektor3D& x, const Wektor3D& y, float a) {
+    return Wektor3D(
+        x.x() * (1.0f - a) + y.x() * a,
+        x.y() * (1.0f - a) + y.y() * a,
+        x.z() * (1.0f - a) + y.z() * a
+    );
+}
 
 #endif

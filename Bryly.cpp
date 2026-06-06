@@ -1,5 +1,6 @@
 #include "Bryly.h"
 #include <cmath>
+#include <vector>
 
 bool Kula::sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, float t_min, float t_max) const {
     Wektor3D OC = promien.poczatek - srodek_;
@@ -43,4 +44,7 @@ bool Kula::sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, fl
     
 
     return true;
+}
+void sprawdz_kolizje(Wektor3D &posPostaci, float promienPostacis, const std::vector<Obiekt3D>obikety ){
+//kolizja postaci kulami (skopiuj z gpu)
 }
