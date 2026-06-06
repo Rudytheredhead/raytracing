@@ -3,17 +3,18 @@
 #include <memory>
 #include <vector>
 #include <map>
+#include <optional>
 
 struct Promien {
     Wektor3D kierunek;
     Wektor3D poczatek;
 };
 struct Parametry_obiektow{
-    Wektor3D kolor;
-    Wektor3D pozycja;
-    float rozmiar; 
-    float lustrzanosc;
-    float moc_emisji;
+    std::optional<Wektor3D> kolor;
+    std::optional<Wektor3D> pozycja;
+    std::optional<float> rozmiar; 
+    std::optional<float> lustrzanosc;
+    std::optional<float> moc_emisji;
 
 };
 
@@ -36,6 +37,7 @@ public:
     virtual ~Obiekt3D() = default;
     virtual bool sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, float t_min, float t_max) const = 0;
     virtual void kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci);
+    void test(){std::cout<<kolor_;};
     
 };
 
@@ -54,6 +56,7 @@ public:
     static std::unique_ptr<Obiekt3D> kreator(const Parametry_obiektow &parametry);
     bool sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, float t_min, float t_max) const override;
     virtual void kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci);
+    
 
     
     ~Kula() = default;
@@ -73,3 +76,5 @@ public:
     }
     static std::unique_ptr<Obiekt3D> utworz(std::string nazwa, Parametry_obiektow &parametry);
 };
+
+bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty);

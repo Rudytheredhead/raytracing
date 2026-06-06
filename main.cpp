@@ -233,7 +233,9 @@ int main() {
     param1.moc_emisji = 0.0f;
 
     // Kula parametry: kolor, srodek, promien, lustrzanosc, emisja
-    obiekty.push_back(FabrykaObiektow::utworz("Kula",param1));
+    //obiekty.push_back(FabrykaObiektow::utworz("Kula",param1));
+    if(!wczytaj_obiekty(obiekty)){return 1;}
+    obiekty[0]->test();
     
     std::vector<Zrodlo_swiatla> swiatla;
     Zrodlo_swiatla czolowka{Wektor3D(0.0f,-0.5f,-0.5f),
