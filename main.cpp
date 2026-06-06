@@ -28,10 +28,9 @@ void obliczenie_kolorow(std::vector<sf::Uint8> &pixels,
     std::atomic<bool>& is_running,
     int watek,
     std::barrier<> &bariera,
-    KontekstWatkow &watek_info
+    KontekstWatkow &watek_info,
+    std::atomic<int>& nastepny_kafelek
 ){
-    int start = watek*DLUGOSC/LICZBA_WATKOW;
-    int koniec = start + DLUGOSC/LICZBA_WATKOW;
 
     
     
@@ -54,17 +53,32 @@ void obliczenie_kolorow(std::vector<sf::Uint8> &pixels,
                 cel_copy = cel;
                 gora_copy = gora;
                 watek_info.swiatla_copy = swiatla;
+                
             }
             
         
             watek_info.uklad_copy = obliczanie_ukladu_wspolrzednych(watek_info.kamera_copy, cel_copy, gora_copy);
+            nastepny_kafelek.store(0);
             
         }
         bariera.arrive_and_wait();
         if(!is_running) break;
 
-        for (int y = start; y < koniec; y++){
-            for (int x = 0; x < DLUGOSC; x++){
+        int id_kafelka = nastepny_kafelek.fetch_add(1);
+        if(id_kafelka>= CALKOWITA_LICZBA_KAFELKOW) break;
+        int x_kafelka = LICZBA_KAWELKOW_X % id_kafelka;
+        int y_kafelka = LICZBA_KAWELKOW_X / id_kafelka;
+        int start_x = x_kafelka* ROZMIAR_KAFELKA;
+        int start_y = y_kafelka* ROZMIAR_KAFELKA;
+        int koniec_x = std::min(start_x+ROZMIAR_KAFELKA,DLUGOSC);
+        int koniec_y = std::min(start_y+ROZMIAR_KAFELKA,DLUGOSC);
+
+
+
+
+
+        for (int y = start_y; y < koniec_y; y++){
+            for (int x = start_x ; x < koniec_x; x++){
                 
                 Wektor3D kierunek = oblicz_kierunek_promienia(x, y, odleglosc_od_ekranu, watek_info.uklad_copy);
                 
@@ -165,10 +179,11 @@ void obliczenie_kolorow(std::vector<sf::Uint8> &pixels,
             }
         }
         bariera.arrive_and_wait();
-        rozmycie_jasnych_punktow_w_poziomie(watek_info.bufor_roboczy ,watek_info.post_procesing_bufor, start, koniec);
+        rozmycie_jasnych_punktow_w_poziomie(watek_info.bufor_roboczy ,watek_info.post_procesing_bufor, start_y, koniec_y,start_x,koniec_x);
         bariera.arrive_and_wait();
-        rozmycie_jasnych_punktow_w_pionie(watek_info.bufor_roboczy ,watek_info.post_procesing_bufor, start, koniec);
+        rozmycie_jasnych_punktow_w_pionie(watek_info.bufor_roboczy ,watek_info.post_procesing_bufor, start_y, koniec_y,start_x,koniec_x);
         bariera.arrive_and_wait();
+        
 
 
 
@@ -196,6 +211,7 @@ int main() {
     Wektor3D kamera_copy;
     Wektor3D cel_copy;
     std::mutex kamera_mutex;
+    std::atomic<int> nastepny_kafelek{0};
 
     std::barrier bariera(LICZBA_WATKOW);
     KontekstWatkow watek_info;
@@ -256,7 +272,8 @@ int main() {
             std::ref(is_running),
             watek,
             std::ref(bariera),
-            std::ref(watek_info)
+            std::ref(watek_info),
+            std::ref(nastepny_kafelek)
         ));
     }
 

@@ -83,14 +83,14 @@ WynikOswietlenia oblicz_oswietlenie(WynikZdarzenia& zderzenie, const std::vector
     return wynik;
 }
 
-void rozmycie_jasnych_punktow_w_poziomie(std::vector<sf::Uint8> &pixels_odczyt,std::vector<sf::Uint8> &pixels_zapis,int start, int koniec){
+void rozmycie_jasnych_punktow_w_poziomie(std::vector<sf::Uint8> &pixels_odczyt,std::vector<sf::Uint8> &pixels_zapis,int start_y , int koniec_y,int start_x,int koniec_x){
     const int promien_rozmycia = 4;
     const float kolor_swiatla_r = 1.0f;
     const float kolor_swiatla_g = 0.95f;
     const float kolor_swiatla_b = 0.8f;
 
-    for(int y=start;y<koniec; y++){
-        for (int x=0;x<DLUGOSC;x++){
+    for(int y=start_y;y<koniec_y; y++){
+        for (int x=start_x;x<koniec_x ;x++){
             float suma_blasku = 0.0f;
             float ilosc_probek = 0.0f;
 
@@ -108,12 +108,12 @@ void rozmycie_jasnych_punktow_w_poziomie(std::vector<sf::Uint8> &pixels_odczyt,s
     }
 }
 
-void rozmycie_jasnych_punktow_w_pionie(std::vector<sf::Uint8> &pixels_odczyt,std::vector<sf::Uint8> &pixels_zapis,int start, int koniec){
+void rozmycie_jasnych_punktow_w_pionie(std::vector<sf::Uint8> &pixels_odczyt,std::vector<sf::Uint8> &pixels_zapis,int start_y , int koniec_y,int start_x,int koniec_x){
     const int promien_rozmycia = 4;
     Wektor3D kolor_swiatla(1.0f,0.95f,0.8f);
 
-    for(int y=start;y<koniec; y++){
-        for (int x=0;x<DLUGOSC;x++){
+    for(int y=start_y;y<koniec_y; y++){
+        for (int x=start_x;x<koniec_x;x++){
             float suma_blasku = 0.0f;
             float ilosc_probek = 0.0f;
 
