@@ -115,6 +115,7 @@ bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
     std::string linia;
     int liczba_obiektow =0;
     Parametry_obiektow parametry;
+    std::string obiekt;
     while (std::getline(plik,linia))
     {
         if (linia.empty()) continue;
@@ -126,9 +127,9 @@ bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
         
 
         if(strumien_lini >> parametr){
-            std::string obiekt;
+            
             if(parametr == "Kule"){
-                obiekt = parametr;
+                obiekt = "Kula";
                 
                 continue;
             }
@@ -148,7 +149,7 @@ bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
                 obiekty.push_back(FabrykaObiektow::utworz(obiekt,parametry));
                 
                 liczba_obiektow++;
-                Parametry_obiektow parametry;
+                parametry = Parametry_obiektow();
             };
             
             if (parametr == "kolor"){
