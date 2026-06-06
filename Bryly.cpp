@@ -1,6 +1,30 @@
 #include "Bryly.h"
 #include <cmath>
 #include <vector>
+std::map<unsigned, KreatorObiektu3D> FabrykaObiektow::kreatory_;
+std::map<unsigned, std::string> FabrykaObiektow::nazwy_;
+unsigned FabrykaObiektow::nastepne_id_ =1;
+
+std::unique_ptr<Obiekt3D> FabrykaObiektow::utworz(std::string nazwa, Parametry_obiektow &parametry ){
+    unsigned id =0;
+    for (const auto&para : nazwy_){
+        if(para.second == nazwa){
+            id = para.first;
+            break;
+        }
+    }
+    
+    if (kreatory_.find(id) != kreatory_.end() && id != 0){
+        return kreatory_[id](parametry);
+    }
+    return nullptr;
+}
+
+std::unique_ptr<Obiekt3D> Kula::kreator(const Parametry_obiektow &parametry){
+    return std::make_unique<Kula>(parametry.kolor, parametry.pozycja, parametry.rozmiar, parametry.lustrzanosc, parametry.moc_emisji);
+}
+
+
 
 bool Kula::sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, float t_min, float t_max) const {
     Wektor3D OC = promien.poczatek - srodek_;
@@ -63,7 +87,7 @@ void Kula::kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci){
                 roznica.z()/odleglosc
             );
             pozPostaci = pozPostaci + glebokosc*wektor_normalny;
-            
+
 
         }
     }

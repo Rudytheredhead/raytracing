@@ -224,8 +224,16 @@ int main() {
 
 
     std::vector<std::unique_ptr<Obiekt3D>> obiekty;
+    FabrykaObiektow::rejestruj(&Kula::kreator,"Kula");
+    Parametry_obiektow param1;
+    param1.kolor = Wektor3D(250.0f, 0.0f, 0.0f);
+    param1.pozycja =  Wektor3D(0.0f, 0.0f, -5.0f);
+    param1.rozmiar = 2.0f;
+    param1.lustrzanosc = 0.6f;
+    param1.moc_emisji = 0.0f;
+
     // Kula parametry: kolor, srodek, promien, lustrzanosc, emisja
-    obiekty.push_back(std::make_unique<Kula>(Wektor3D(250.0f, 0.0f, 0.0f), Wektor3D(0.0f, 0.0f, -5.0f), 2.0f, 0.6f, 0.0f));
+    obiekty.push_back(FabrykaObiektow::utworz("Kula",param1));
     
     std::vector<Zrodlo_swiatla> swiatla;
     Zrodlo_swiatla czolowka{Wektor3D(0.0f,-0.5f,-0.5f),
