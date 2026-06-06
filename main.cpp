@@ -61,13 +61,16 @@ void obliczenie_kolorow(std::vector<sf::Uint8> &pixels,
             nastepny_kafelek.store(0);
             
         }
+        int start = watek*DLUGOSC/LICZBA_WATKOW;
+        int koniec = start + DLUGOSC/LICZBA_WATKOW;
         bariera.arrive_and_wait();
         if(!is_running) break;
+        while(true){
 
         int id_kafelka = nastepny_kafelek.fetch_add(1);
         if(id_kafelka>= CALKOWITA_LICZBA_KAFELKOW) break;
-        int x_kafelka = LICZBA_KAWELKOW_X % id_kafelka;
-        int y_kafelka = LICZBA_KAWELKOW_X / id_kafelka;
+        int x_kafelka = id_kafelka % LICZBA_KAWELKOW_X;
+        int y_kafelka = id_kafelka/ LICZBA_KAWELKOW_X ;
         int start_x = x_kafelka* ROZMIAR_KAFELKA;
         int start_y = y_kafelka* ROZMIAR_KAFELKA;
         int koniec_x = std::min(start_x+ROZMIAR_KAFELKA,DLUGOSC);
@@ -178,10 +181,11 @@ void obliczenie_kolorow(std::vector<sf::Uint8> &pixels,
                 
             }
         }
+        }
         bariera.arrive_and_wait();
-        rozmycie_jasnych_punktow_w_poziomie(watek_info.bufor_roboczy ,watek_info.post_procesing_bufor, start_y, koniec_y,start_x,koniec_x);
+        rozmycie_jasnych_punktow_w_poziomie(watek_info.bufor_roboczy ,watek_info.post_procesing_bufor, start, koniec);
         bariera.arrive_and_wait();
-        rozmycie_jasnych_punktow_w_pionie(watek_info.bufor_roboczy ,watek_info.post_procesing_bufor, start_y, koniec_y,start_x,koniec_x);
+        rozmycie_jasnych_punktow_w_pionie(watek_info.bufor_roboczy ,watek_info.post_procesing_bufor, start,koniec);
         bariera.arrive_and_wait();
         
 
