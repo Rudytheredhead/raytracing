@@ -5,6 +5,7 @@
 #include "Raytracer.h"
 #include "Kamera.h"
 #include "Wczytywanie.h"
+#include "Strukury.h"
 
 #include <thread>
 #include <mutex>

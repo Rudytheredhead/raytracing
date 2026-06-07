@@ -1,36 +1,12 @@
 #pragma once
 #include "Wektor3D.h"
+#include "Strukury.h"
 #include <memory>
 #include <vector>
 #include <map>
 #include <optional>
 
 
-struct Promien {
-    Wektor3D kierunek;
-    Wektor3D poczatek;
-};
-struct Parametry_obiektow{
-    std::optional<Wektor3D> kolor;
-    std::optional<Wektor3D> pozycja;
-    std::optional<float> rozmiar; 
-    std::optional<float> lustrzanosc;
-    std::optional<float> metalicznosc;
-    std::optional<float> moc_emisji;
-
-};
-
-struct WynikZdarzenia {
-    bool trafienie;
-    float t;
-    Wektor3D wektor_normalny;
-    Wektor3D punkt_zderzenia; 
-    Wektor3D kolor;
-    Promien promien_odbity;
-    float lustrzanosc;
-    float moc_emisji;
-    float metalicznosc;
-};
 
 
 
