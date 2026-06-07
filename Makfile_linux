@@ -1,2 +1,0 @@
-raytracing: main.cpp Bryly.cpp Wektor3D.cpp Matematyka.cpp Raytracer.cpp Kamera.cpp
-	g++ -std=c++20 main.cpp Bryly.cpp Wektor3D.cpp Matematyka.cpp Raytracer.cpp Kamera.cpp -o raytracing -lsfml-graphics -lsfml-window -lsfml-system -O3 -march=native -ffast-math
