@@ -38,11 +38,12 @@ int main() {
 
     std::vector<std::unique_ptr<Obiekt3D>> obiekty;
     FabrykaObiektow::rejestruj(&Kula::kreator,"Kula");
+    FabrykaObiektow::rejestruj(&Szescian::kreator,"Szescian");
+    int liczba_watkow=0;
+
   
 
-    // Kula parametry: kolor, srodek, promien, lustrzanosc, emisja
-    //obiekty.push_back(FabrykaObiektow::utworz("Kula",param1));
-    if(!wczytaj_obiekty(obiekty)){return 1;}
+    if(!wczytaj_obiekty(obiekty,liczba_watkow)){return 1;}
     
     
     std::vector<Zrodlo_swiatla> swiatla;
@@ -56,7 +57,7 @@ int main() {
     swiatla.push_back(czolowka);
     bool czy_czolowka_jest_wlaczona = true;
     Zrodlo_swiatla swiatlo1 {
-        Wektor3D(0.0f, -10.0f, -5.0f), Wektor3D(1.0f, 1.0f, 1.0f), 50.0f, Wektor3D(0.0f, -1.0f, 0.0f), -2.0f};
+        Wektor3D(0.0f, 10.0f, -5.0f), Wektor3D(1.0f, 1.0f, 1.0f), 50.0f, Wektor3D(0.0f, -1.0f, 0.0f), -2.0f};
     
     swiatla.push_back(swiatlo1);
 
@@ -81,7 +82,7 @@ int main() {
     sf::Mouse::setPosition(sf::Vector2i(DLUGOSC/2, DLUGOSC/2), window);
     window.setMouseCursorVisible(false);
 
-    Raytracer raytracer(DLUGOSC, LICZBA_WATKOW);
+    Raytracer raytracer(DLUGOSC, liczba_watkow);
     raytracer.uruchomWatki(
         kamera_copy,kamera_mutex, cel_copy, gora_copy, swiatla, obiekty,odleglosc_od_ekranu
     );

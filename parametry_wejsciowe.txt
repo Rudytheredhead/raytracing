@@ -1,3 +1,4 @@
+liczba_rdzeni 8 
 Kule
 kula1
 kolor 1.0 0.8 0.1
@@ -13,13 +14,6 @@ promien 2.0
 lustrzanosc 0.4
 moc_emisji 0.0
 metalicznosc 0.0
-kula3
-kolor 0.0 1.0 1.0
-pozycja 0.0 3.0 -8.0
-promien 1.5
-lustrzanosc 0.0
-moc_emisji 3.0
-metalicznosc 0.0
 kula4
 kolor 0.2 0.8 0.2
 pozycja -7.0 -1.0 -7.0
@@ -34,4 +28,14 @@ promien 1.5
 lustrzanosc 0.85
 moc_emisji 0.0
 metalicznosc 1.0
-koniec
+koniec_kul
+
+Szesciany
+pudelko1
+kolor 0.8 0.2 0.8
+pozycja 4.0 0.0 0.0
+promien 2.0
+lustrzanosc 0.1
+moc_emisji 0.0
+metalicznosc 0.0
+koniec_szescianow

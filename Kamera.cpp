@@ -57,20 +57,30 @@ void Kamera::aktualizuj(float deltaTime, const std::vector<std::unique_ptr<Obiek
     przesuniecie = przesuniecie + deltaTime * wektor_predkosci_;
     pozycja_ = pozycja_ + przesuniecie;
     czy_stoi_na_ziemi_ = false;
-    
-    // 4. Kolizja z podłogą
-    if (pozycja_.y() < 0.0f) {
+    float y_przed_kolizja = pozycja_.y();
+
+        
+    for (const auto& obiekt : obiekty) {
+        obiekt->kolizja_z_postacia(pozycja_, promien_postaci_);
+    }
+    if(pozycja_.y()> y_przed_kolizja+0.0001f && wektor_predkosci_.y()<=0.0f){
+        czy_stoi_na_ziemi_ = true;
+        wektor_predkosci_.set_y(0.0f);
+    }
+    else if(pozycja_.y()< y_przed_kolizja-0.0001f && wektor_predkosci_.y()>0.0f){
+        wektor_predkosci_.set_y(0.0f);
+    }
+    if (pozycja_.y()<0.0f){
         pozycja_.set_y(0.0f);
         czy_stoi_na_ziemi_ = true;
         wektor_predkosci_.set_y(0.0f);
     }
     
-    // 5. Kolizja z obiektami 3D
-    if (przesuniecie.modul2() > 0.0f) {
-        for (const auto& obiekt : obiekty) {
-            obiekt->kolizja_z_postacia(pozycja_, promien_postaci_);
-        }
-    }
+    
+
+    
+    
+
 }
 
 // Implementacja getterów

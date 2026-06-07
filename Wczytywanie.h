@@ -21,4 +21,4 @@ public:
     static std::unique_ptr<Obiekt3D> utworz(std::string nazwa, Parametry_obiektow &parametry);
 };
 
-bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty);
+bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty,int &liczba_rdzeni);

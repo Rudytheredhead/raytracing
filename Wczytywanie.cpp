@@ -36,19 +36,22 @@ bool sprawdzenie_parametrow(const Parametry_obiektow &parametry){
 
 }
 
-bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
+bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty,int &liczba_rdzeni){
     std::ifstream plik("parametry_wejsciowe.txt");
 
     if(!plik.is_open()){
         std::cerr<<"Blad:: nie udalo sie otworzic pliku parametry_wejsciowe.txt"<<std::endl;
         return false;
     }
+    
     std::string linia;
     int liczba_obiektow =0;
     Parametry_obiektow parametry;
     std::string obiekt;
+    int nr_lini =0;
     while (std::getline(plik,linia))
     {
+        nr_lini++;
         if (linia.empty()) continue;
         
         
@@ -64,6 +67,11 @@ bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
                 
                 continue;
             }
+            else if(parametr == "Szesciany"){
+                obiekt = "Szescian";
+                liczba_obiektow =0;
+                continue;
+            }
             std::vector<float> liczby_w_lini;
             float odczytana_liczba;
             while(strumien_lini >> odczytana_liczba){
@@ -74,7 +82,7 @@ bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
                 if (liczba_obiektow==0) {liczba_obiektow++;continue;}
                 
                 if(!sprawdzenie_parametrow(parametry)){
-                    std::cerr<<"Blad podczas wpisaywnaia parametrow"<<std::endl;
+                    std::cerr<<"Blad podczas wpisaywnaia parametrow "<<linia<<std::endl;
                     return false;
                 }
                 obiekty.push_back(FabrykaObiektow::utworz(obiekt,parametry));
@@ -82,6 +90,14 @@ bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
                 liczba_obiektow++;
                 parametry = Parametry_obiektow();
             };
+            if(nr_lini==1){
+                if(liczby_w_lini.size()!=1){
+                    std::cerr<<"blad podczas podawania ilosci rdzeni, uzyto wartosci domyslnej 4"<<std::endl;
+                    liczba_rdzeni =4;
+                }
+                liczba_rdzeni = liczby_w_lini[0];
+
+            }
             
             if (parametr == "kolor"){
                 if (liczby_w_lini.size()!=3){
@@ -125,7 +141,7 @@ bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
                     return false;
                 }
                 parametry.metalicznosc = liczby_w_lini[0];
-                std::cout<<parametry.metalicznosc.value();
+                
             }
             
             else if (parametr == "moc_emisji"){
