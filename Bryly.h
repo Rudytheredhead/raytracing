@@ -5,6 +5,7 @@
 #include <map>
 #include <optional>
 
+
 struct Promien {
     Wektor3D kierunek;
     Wektor3D poczatek;
@@ -30,6 +31,9 @@ struct WynikZdarzenia {
     float moc_emisji;
     float metalicznosc;
 };
+
+
+
 
 class Obiekt3D {
 protected:

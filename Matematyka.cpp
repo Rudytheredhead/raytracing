@@ -1,5 +1,6 @@
 #include "Wektor3D.h"
 #include "Matematyka.h"
+#include "Raytracer.h"
 #include <algorithm>
 
 
