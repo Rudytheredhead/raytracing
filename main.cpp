@@ -4,6 +4,7 @@
 #include "Wektor3D.h"
 #include "Raytracer.h"
 #include "Kamera.h"
+#include "Wczytywanie.h"
 
 #include <thread>
 #include <mutex>
