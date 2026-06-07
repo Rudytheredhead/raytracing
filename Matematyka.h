@@ -19,7 +19,7 @@ const float ROZMIAR_POSTACI = 0.5f;
 
 
 
-const float MOC_CZOLOWKI =1.0f;
+const float MOC_CZOLOWKI =2.0f;
 struct Uklad_wspolrzednych {
     Wektor3D W;
     Wektor3D U;

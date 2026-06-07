@@ -86,86 +86,90 @@ void obliczenie_kolorow(std::vector<sf::Uint8> &pixels,
                 Wektor3D kierunek = oblicz_kierunek_promienia(x, y, odleglosc_od_ekranu, watek_info.uklad_copy);
                 
                 Promien promien_swiatla{ kierunek,watek_info.kamera_copy};
-                
-                WynikZdarzenia wyniki;
-                wyniki.t = 9999.0f;
-                float t_min = 0.001f;
-                bool czy_cos_zostalo_trafione = false;
-                
-                for(const auto& obiekt : obiekty){
-                    if(obiekt->sprawdz_trafienie(promien_swiatla, wyniki, t_min, wyniki.t)) {
-                        czy_cos_zostalo_trafione = true;
-                        
-                    }
-                }
-                
-                Wektor3D kolor_powierzchni(0.0f, 0.0f, 0.0f);
+
+                Promien aktualny_promien{kierunek, watek_info.kamera_copy};
+                Wektor3D kolor_powierzchni(0.0f,0.0f,0.0f);
+                Wektor3D mnoznik_odbicia(1.0f,1.0f,1.0f);
                 float maska_blasku = 0.0f;
-                
-                if (czy_cos_zostalo_trafione){
-                    WynikOswietlenia matowy_wynik = oblicz_oswietlenie(wyniki,watek_info.swiatla_copy, obiekty);
-                    maska_blasku += matowy_wynik.maska_blasku;
-                    Wektor3D kolor_matowy = matowy_wynik.kolor_matowy;
-
-                    Wektor3D kolor_odbicia(0.0f, 0.0f, 0.0f);
-                    if (wyniki.lustrzanosc > 0.0f){
-                        WynikZdarzenia wyniki_odbicia;
-                        wyniki_odbicia.t = 9999.0f;
-                        bool czy_odbite = false;
-                        
-                        for (const auto& obiekt : obiekty){
-                            if(obiekt->sprawdz_trafienie(wyniki.promien_odbity, wyniki_odbicia, t_min, wyniki_odbicia.t)){
-                                czy_odbite = true;
-                            }
-                        }
-
-                        if(czy_odbite){
-                            WynikOswietlenia odbicie_wynik = oblicz_oswietlenie(wyniki_odbicia, watek_info.swiatla_copy, obiekty);
-                            kolor_odbicia = odbicie_wynik.kolor_matowy;
-                            maska_blasku += odbicie_wynik.maska_blasku;
+                for (int odbicie =0;odbicie<3;odbicie++){
+                    
+                    WynikZdarzenia wyniki;
+                    wyniki.t = 9999.0f;
+                    float t_min = 0.0001f;
+                    bool czy_cos_zostalo_trafione = false;
+                    for (const auto&obiekt:obiekty){
+                        if(obiekt->sprawdz_trafienie(aktualny_promien,wyniki,t_min,wyniki.t)){
+                            czy_cos_zostalo_trafione = true;
                         }
                     }
-
-                    kolor_powierzchni = mieszaj(kolor_matowy, kolor_odbicia, wyniki.lustrzanosc);
-                    kolor_powierzchni = kolor_powierzchni + (wyniki.moc_emisji*wyniki.kolor);
-                    
-                    // Tone mapping z GPU
-                    kolor_powierzchni = kolor_powierzchni / (kolor_powierzchni + Wektor3D(1.0f, 1.0f, 1.0f));
-                    
-                } else {
-                    kolor_powierzchni = Wektor3D(0.0f, 0.0f, 0.0f);
-                }
-                
-                // Maska Blasku dla widoku zrodla swiatla (flary)
-                for (const auto& swiatlo :watek_info.swiatla_copy){
-                    Wektor3D kierunek_do_swiatla = swiatlo.srodek - watek_info.kamera_copy;
-                    kierunek_do_swiatla.normalizuj();
-                    
-                    Wektor3D odchylenie = promien_swiatla.kierunek - kierunek_do_swiatla;
-                    float zgniecenie = 3.0f;
-                    odchylenie = odchylenie + ((odchylenie * swiatlo.kierunek_swiecenia) * zgniecenie)*swiatlo.kierunek_swiecenia ;
-                    
-                    float korelacja = std::max(0.0f, 1.0f - odchylenie.modul());
-                    
-                    float sila = std::pow(korelacja, 20.0f);
-                    float moc_swiatla_od_kata = 1.0f;
-                    
-                    
-                    if(swiatlo.kat_swiecenia > -1.0f){
+                    if(!czy_cos_zostalo_trafione){
+                        Wektor3D kolor_tla(0.05f, 0.05f,0.1f);
                         
-                        moc_swiatla_od_kata = 0.0f;
-                        Wektor3D ujemny = (-1.0f)*kierunek_do_swiatla ;
-                        float kat_swiatla = ujemny * swiatlo.kierunek_swiecenia;
-                        if (kat_swiatla > swiatlo.kat_swiecenia){
-                            moc_swiatla_od_kata = (kat_swiatla - swiatlo.kat_swiecenia) / (1.0f - swiatlo.kat_swiecenia);
-                            kolor_powierzchni = swiatlo.kolor;
+                        kolor_powierzchni = kolor_powierzchni + mnoznik_odbicia.przemnoz(kolor_tla);
+
+                        for (const auto& swiatlo :watek_info.swiatla_copy){
+                            Wektor3D kierunek_do_swiatla = swiatlo.srodek - watek_info.kamera_copy;
+                            kierunek_do_swiatla.normalizuj();
                             
+                            Wektor3D odchylenie = promien_swiatla.kierunek - kierunek_do_swiatla;
+                            float zgniecenie = 3.0f;
+                            odchylenie = odchylenie + ((odchylenie * swiatlo.kierunek_swiecenia) * zgniecenie)*swiatlo.kierunek_swiecenia ;
+                            
+                            float korelacja = std::max(0.0f, 1.0f - odchylenie.modul());
+                            
+                            float sila = std::pow(korelacja, 20.0f);
+                            float moc_swiatla_od_kata = 1.0f;
+                            
+                            
+                            if(swiatlo.kat_swiecenia > -1.0f){
+                                
+                                moc_swiatla_od_kata = 0.0f;
+                                Wektor3D ujemny = (-1.0f)*kierunek_do_swiatla ;
+                                float kat_swiatla = ujemny * swiatlo.kierunek_swiecenia;
+                                if (kat_swiatla > swiatlo.kat_swiecenia){
+                                    moc_swiatla_od_kata = (kat_swiatla - swiatlo.kat_swiecenia) / (1.0f - swiatlo.kat_swiecenia);
+                                    kolor_powierzchni = swiatlo.kolor;
+                                    
+                                }
+                            }
+                        maska_blasku += sila * swiatlo.moc_emisji * moc_swiatla_od_kata;
                         }
+
+                        break;
                     }
-                    maska_blasku += sila * swiatlo.moc_emisji * moc_swiatla_od_kata;
+
+                    WynikOswietlenia matowy_wynik = oblicz_oswietlenie(wyniki, watek_info.swiatla_copy, obiekty);
+                    if (odbicie ==0){
+                        maska_blasku += matowy_wynik.maska_blasku;
+                    }
+                    Wektor3D matowy_wklad = (1.0f - wyniki.metalicznosc)*matowy_wynik.kolor_matowy;
+
+                    kolor_powierzchni = kolor_powierzchni + (1.0f - wyniki.lustrzanosc)*mnoznik_odbicia.przemnoz(matowy_wklad);
                     
+                    kolor_powierzchni = kolor_powierzchni + wyniki.moc_emisji*mnoznik_odbicia.przemnoz(wyniki.kolor);
+                    
+                    if(wyniki.lustrzanosc > 0.0f){
+                        aktualny_promien = wyniki.promien_odbity;
+
+                        Wektor3D czyte_odbicie(1.0f,1.0f,1.0f);
+                        Wektor3D zabarwienie_odbicia = mieszaj(czyte_odbicie, wyniki.kolor, wyniki.metalicznosc);
+
+                        mnoznik_odbicia = wyniki.lustrzanosc*mnoznik_odbicia.przemnoz(zabarwienie_odbicia);
+                        //std::cout<<wyniki.metalicznosc;
+                        
+
+                    }
+                    else {
+                        break;
+                    }
+
+
+
                 }
+
                 
+                
+                //if( kolor_powierzchni.x()!=0.0f) std::cout<<kolor_powierzchni;
                 int r = std::clamp(static_cast<int>((kolor_powierzchni.x()) * 255.0f), 0, 255);
                 int g = std::clamp(static_cast<int>((kolor_powierzchni.y()) * 255.0f), 0, 255);
                 int b = std::clamp(static_cast<int>((kolor_powierzchni.z()) * 255.0f), 0, 255);
@@ -235,7 +239,7 @@ int main() {
     std::vector<Zrodlo_swiatla> swiatla;
     Zrodlo_swiatla czolowka{Wektor3D(0.0f,-0.5f,-0.5f),
         Wektor3D(1.0f,1.0f,1.0f),
-        1.0f,
+        0.0005f,
         Wektor3D(0.0f,0.0f,0.0f),
         0.8f
     };
@@ -243,7 +247,7 @@ int main() {
     swiatla.push_back(czolowka);
     bool czy_czolowka_jest_wlaczona = true;
     Zrodlo_swiatla swiatlo1 {
-        Wektor3D(0.0f, -10.0f, -5.0f), Wektor3D(1.0f, 1.0f, 1.0f), 10.0f, Wektor3D(0.0f, -1.0f, 0.0f), -2.0f};
+        Wektor3D(0.0f, -10.0f, -5.0f), Wektor3D(1.0f, 1.0f, 1.0f), 50.0f, Wektor3D(0.0f, -1.0f, 0.0f), -2.0f};
     
     swiatla.push_back(swiatlo1);
 

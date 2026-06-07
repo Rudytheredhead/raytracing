@@ -14,6 +14,7 @@ struct Parametry_obiektow{
     std::optional<Wektor3D> pozycja;
     std::optional<float> rozmiar; 
     std::optional<float> lustrzanosc;
+    std::optional<float> metalicznosc;
     std::optional<float> moc_emisji;
 
 };
@@ -27,6 +28,7 @@ struct WynikZdarzenia {
     Promien promien_odbity;
     float lustrzanosc;
     float moc_emisji;
+    float metalicznosc;
 };
 
 class Obiekt3D {
@@ -48,11 +50,12 @@ private:
     Wektor3D srodek_;
     float promien_; 
     float lustrzanosc_;
+    float metalicznosc_;
     float moc_emisji_;
     
 public:
-    Kula(Wektor3D kolor, Wektor3D srodek, float promien, float lustrzanosc = 0.0f, float moc_emisji = 0.0f)
-        : Obiekt3D(kolor), srodek_(srodek), promien_(promien), lustrzanosc_(lustrzanosc), moc_emisji_(moc_emisji) {};
+    Kula(Wektor3D kolor, Wektor3D srodek, float promien, float lustrzanosc = 0.0f,float metalicznosc =0.0f, float moc_emisji = 0.0f)
+        : Obiekt3D(kolor), srodek_(srodek), promien_(promien), lustrzanosc_(lustrzanosc),metalicznosc_(metalicznosc), moc_emisji_(moc_emisji) {};
     static std::unique_ptr<Obiekt3D> kreator(const Parametry_obiektow &parametry);
     bool sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, float t_min, float t_max) const override;
     virtual void kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci);

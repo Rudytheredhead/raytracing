@@ -67,7 +67,7 @@ WynikOswietlenia oblicz_oswietlenie(WynikZdarzenia& zderzenie, const std::vector
             }
 
             float natezenie = std::max(0.0f, zderzenie.wektor_normalny * kierunek_do_swiatla);
-            float tlumienie = 1.0f / (odleglosc_od_swiatla * odleglosc_od_swiatla*zderzenie.t*zderzenie.t);
+            float tlumienie = 1.0f / (odleglosc_od_swiatla * odleglosc_od_swiatla);
             
             Wektor3D wynik_pojedynczego =  (swiatlo.moc_emisji * natezenie * tlumienie * moc_swiatla_od_kata)* swiatlo.kolor;
             calkowite_energia_swiatla = calkowite_energia_swiatla + wynik_pojedynczego;
@@ -76,7 +76,9 @@ WynikOswietlenia oblicz_oswietlenie(WynikZdarzenia& zderzenie, const std::vector
     }
     
     WynikOswietlenia wynik;
-    wynik.kolor_matowy = zderzenie.kolor.przemnoz(calkowite_energia_swiatla);
+    Wektor3D ambient(0.05f, 0.05f, 0.05f);
+    wynik.kolor_matowy = zderzenie.kolor.przemnoz(calkowite_energia_swiatla+ambient);
+    //std::cout<<calkowite_energia_swiatla;
     // Odpowiednik GPU zapisujacego '.a' z mnozenia vec3 * float jako pierwszej zmiennej z vec3 (tutaj rzutowane na x dla pewnosci)
     wynik.maska_blasku = calkowite_energia_swiatla.x() * zderzenie.lustrzanosc; 
     

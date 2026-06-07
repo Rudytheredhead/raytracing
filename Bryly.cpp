@@ -24,7 +24,7 @@ std::unique_ptr<Obiekt3D> FabrykaObiektow::utworz(std::string nazwa, Parametry_o
 }
 
 std::unique_ptr<Obiekt3D> Kula::kreator(const Parametry_obiektow &parametry){
-    return std::make_unique<Kula>(parametry.kolor.value(), parametry.pozycja.value(), parametry.rozmiar.value(), parametry.lustrzanosc.value(), parametry.moc_emisji.value());
+    return std::make_unique<Kula>(parametry.kolor.value(), parametry.pozycja.value(), parametry.rozmiar.value(), parametry.lustrzanosc.value(),parametry.metalicznosc.value(), parametry.moc_emisji.value());
 }
 
 
@@ -68,6 +68,7 @@ bool Kula::sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, fl
 
     wyniki.lustrzanosc = lustrzanosc_;
     wyniki.moc_emisji = moc_emisji_;
+    wyniki.metalicznosc = metalicznosc_;
     
 
     return true;
@@ -101,6 +102,8 @@ bool sprawdzenie_parametrow(const Parametry_obiektow &parametry){
     else if(!parametry.rozmiar.has_value()) return false;
     else if(!parametry.lustrzanosc.has_value()) return false;
     else if(!parametry.moc_emisji.has_value()) return false;
+    else if(!parametry.metalicznosc.has_value()) return false;
+
     return true;
 
 }
@@ -188,6 +191,15 @@ bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
                 }
                 parametry.lustrzanosc = liczby_w_lini[0];
             }
+            else if (parametr == "metalicznosc"){
+                if (liczby_w_lini.size()!=1){
+                    std::cerr<<"Bledna ilosc parametrow przy metalicznosci"<<std::endl;
+                    return false;
+                }
+                parametry.metalicznosc = liczby_w_lini[0];
+                std::cout<<parametry.metalicznosc.value();
+            }
+            
             else if (parametr == "moc_emisji"){
                 if (liczby_w_lini.size()!=1){
                     std::cerr<<"Bledna ilosc parametrow przy mocy emisji"<<std::endl;
@@ -195,6 +207,7 @@ bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty){
                 }
                 parametry.moc_emisji = liczby_w_lini[0];
             }
+
            
 
         }

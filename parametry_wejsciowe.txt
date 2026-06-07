@@ -1,15 +1,16 @@
 Kule
 kula1
-kolor 255.0 0.0 0.0
+kolor 1.0 0.0 0.0
 pozycja 0.0 0.0 -5.0
-promien 2.0
-lustrzanosc 0.6
-moc_emisji 0.0
-kula2
-kolor 0.0 255.0 0.0
-pozycja 5.0 0.0 -5.0
 promien 2.0
 lustrzanosc 0.0
 moc_emisji 0.0
+metalicznosc 0.0  
+kula2
+kolor 1.0 0.8 0.0
+pozycja 5.0 0.0 -5.0
+promien 2.0
+lustrzanosc 1.0
+moc_emisji 0.0
+metalicznosc 1.0 
 koniec
-

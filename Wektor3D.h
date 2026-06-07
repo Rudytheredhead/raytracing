@@ -116,6 +116,7 @@ inline Wektor3D mieszaj(const Wektor3D& x, const Wektor3D& y, float a) {
         x.y() * (1.0f - a) + y.y() * a,
         x.z() * (1.0f - a) + y.z() * a
     );
+    
 }
 
 #endif
