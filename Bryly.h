@@ -36,7 +36,7 @@ public:
     Obiekt3D(Wektor3D kolor): kolor_(kolor) {}
     virtual ~Obiekt3D() = default;
     virtual bool sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, float t_min, float t_max) const = 0;
-    virtual void kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci);
+    virtual void kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci)=0;
     void test(){std::cout<<kolor_;};
     
 };
