@@ -3,12 +3,13 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include "json.hpp"
 
 std::map<unsigned, KreatorObiektu3D> FabrykaObiektow::kreatory_;
 std::map<unsigned, std::string> FabrykaObiektow::nazwy_;
 unsigned FabrykaObiektow::nastepne_id_ =1;
 
-std::unique_ptr<Obiekt3D> FabrykaObiektow::utworz(std::string nazwa, Parametry_obiektow &parametry ){
+std::unique_ptr<Obiekt3D> FabrykaObiektow::utworz(std::string nazwa,const nlohmann::json &dane ){
     unsigned id =0;
     for (const auto&para : nazwy_){
         if(para.second == nazwa){
@@ -18,7 +19,7 @@ std::unique_ptr<Obiekt3D> FabrykaObiektow::utworz(std::string nazwa, Parametry_o
     }
     
     if (kreatory_.find(id) != kreatory_.end() && id != 0){
-        return kreatory_[id](parametry);
+        return kreatory_[id](dane);
     }
     return nullptr;
 }
@@ -36,130 +37,66 @@ bool sprawdzenie_parametrow(const Parametry_obiektow &parametry){
 
 }
 
-bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty,int &liczba_rdzeni){
-    std::ifstream plik("parametry_wejsciowe.txt");
+bool wczytaj_scene(const std::string& sciezka, 
+                   std::vector<std::unique_ptr<Obiekt3D>>& obiekty, 
+                   std::vector<Zrodlo_swiatla>& swiatla, 
+                   int& liczba_rdzeni) { // Przekazujemy przez referencję
+                   
+    std::ifstream plik(sciezka);
+    if (!plik.is_open()) return false;
 
-    if(!plik.is_open()){
-        std::cerr<<"Blad:: nie udalo sie otworzic pliku parametry_wejsciowe.txt"<<std::endl;
-        return false;
+    nlohmann::json j;
+    plik >> j; 
+
+   
+    if (j.contains("ustawienia")) {
+        
+        liczba_rdzeni = j["ustawienia"].value("liczba_rdzeni", 4);
+    } else {
+       
+        liczba_rdzeni = 4; 
     }
-    
-    std::string linia;
-    int liczba_obiektow =0;
-    Parametry_obiektow parametry;
-    std::string obiekt;
-    int nr_lini =0;
-    while (std::getline(plik,linia))
-    {
-        nr_lini++;
-        if (linia.empty()) continue;
-        
-        
-        std::istringstream strumien_lini(linia);
-;
-        std::string parametr;
-        
 
-        if(strumien_lini >> parametr){
-            
-            if(parametr == "Kule"){
-                obiekt = "Kula";
-                
-                continue;
-            }
-            else if(parametr == "Szesciany"){
-                obiekt = "Szescian";
-                liczba_obiektow =0;
-                continue;
-            }
-            std::vector<float> liczby_w_lini;
-            float odczytana_liczba;
-            while(strumien_lini >> odczytana_liczba){
-                liczby_w_lini.push_back(odczytana_liczba);
-            }
-            if(liczby_w_lini.empty()){
-                
-                if (liczba_obiektow==0) {liczba_obiektow++;continue;}
-                
-                if(!sprawdzenie_parametrow(parametry)){
-                    std::cerr<<"Blad podczas wpisaywnaia parametrow "<<linia<<std::endl;
-                    return false;
-                }
-                obiekty.push_back(FabrykaObiektow::utworz(obiekt,parametry));
-                
-                liczba_obiektow++;
-                parametry = Parametry_obiektow();
-            };
-            if(nr_lini==1){
-                if(liczby_w_lini.size()!=1){
-                    std::cerr<<"blad podczas podawania ilosci rdzeni, uzyto wartosci domyslnej 4"<<std::endl;
-                    liczba_rdzeni =4;
-                }
-                liczba_rdzeni = liczby_w_lini[0];
-
-            }
-            
-            if (parametr == "kolor"){
-                if (liczby_w_lini.size()!=3){
-                    std::cerr<<"Bledna ilosc parametrow przy kolorze"<<std::endl;
-                    return false;
-                }
-                parametry.kolor = Wektor3D(
-                    liczby_w_lini[0],
-                    liczby_w_lini[1],
-                    liczby_w_lini[2]
-                );
-            }
-            else if (parametr == "pozycja"){
-                if (liczby_w_lini.size()!=3){
-                    std::cerr<<"Bledna ilosc parametrow przy pozycji"<<std::endl;
-                    return false;
-                }
-                parametry.pozycja = Wektor3D(
-                    liczby_w_lini[0],
-                    liczby_w_lini[1],
-                    liczby_w_lini[2]
-                );
-            }
-            else if (parametr == "promien"){
-                if (liczby_w_lini.size()!=1){
-                    std::cerr<<"Bledna ilosc parametrow przy promieniu"<<std::endl;
-                    return false;
-                }
-                parametry.rozmiar = liczby_w_lini[0];
-            }
-            else if (parametr == "lustrzanosc"){
-                if (liczby_w_lini.size()!=1){
-                    std::cerr<<"Bledna ilosc parametrow przy lustrzanosci"<<std::endl;
-                    return false;
-                }
-                parametry.lustrzanosc = liczby_w_lini[0];
-            }
-            else if (parametr == "metalicznosc"){
-                if (liczby_w_lini.size()!=1){
-                    std::cerr<<"Bledna ilosc parametrow przy metalicznosci"<<std::endl;
-                    return false;
-                }
-                parametry.metalicznosc = liczby_w_lini[0];
-                
-            }
-            
-            else if (parametr == "moc_emisji"){
-                if (liczby_w_lini.size()!=1){
-                    std::cerr<<"Bledna ilosc parametrow przy mocy emisji"<<std::endl;
-                    return false;
-                }
-                parametry.moc_emisji = liczby_w_lini[0];
-            }
-
-           
-
+   
+    if (j.contains("swiatla")) {
+        for (const auto& element : j["swiatla"]) {
+            Zrodlo_swiatla swiatlo;
+            Wektor3D kierunek_swiecenia(
+                element["kierunek_swiecenia"][0],
+                element["kierunek_swiecenia"][1],
+                element["kierunek_swiecenia"][2]
+            );
+            Wektor3D kolor(
+                element["kolor"][0],
+                element["kolor"][1],
+                element["kolor"][2]
+            );
+            Wektor3D srodek(
+                element["pozycja"][0],
+                element["pozycja"][1],
+                element["pozycja"][2]
+            );
+            swiatlo.kat_swiecenia = element["kat_swiecenia"];
+            swiatlo.kierunek_swiecenia = kierunek_swiecenia;
+            swiatlo.kolor = kolor;
+            swiatlo.moc_emisji = element["moc_emisji"];
+            swiatlo.srodek = srodek;
+            swiatla.push_back(swiatlo);
         }
+    }
 
+    // 3. Wczytywanie obiektów
+    if (j.contains("obiekty")) {
+        for (const auto& element : j["obiekty"]) {
+            std::string typ = element["typ"];
+            
+            
+            auto obiekt = FabrykaObiektow::utworz(typ, element); 
+            if (obiekt) {
+                obiekty.push_back(std::move(obiekt));
+            }
+        }
     }
     
     return true;
-    
 }
-
-

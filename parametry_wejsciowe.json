@@ -1,0 +1,166 @@
+{
+  "ustawienia": {
+    "liczba_rdzeni": 8
+  },
+  "swiatla": [
+    {
+      "pozycja": [
+        0.0,
+        15.0,
+        -5.0
+      ],
+      "kolor": [
+        1.0,
+        0.95,
+        0.9
+      ],
+      "moc_emisji": 120.0,
+      "kat_swiecenia": -2.0,
+      "kierunek_swiecenia": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "pozycja": [
+        -8.0,
+        5.0,
+        -2.0
+      ],
+      "kolor": [
+        0.2,
+        0.2,
+        1.0
+      ],
+      "moc_emisji": 40.0,
+      "kat_swiecenia": -2.0,
+      "kierunek_swiecenia": [
+        1.0,
+        -0.5,
+        -1.0
+      ]
+    }
+  ],
+  "obiekty": [
+    {
+      "typ": "Szescian",
+      "kolor": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "pozycja": [
+        0.0,
+        -10.5,
+        -5.0
+      ],
+      "polowa_boku": 10.0,
+      "lustrzanosc": 0.3,
+      "moc_emisji": 0.0,
+      "metalicznosc": 0.1
+    },
+    {
+      "typ": "Kula",
+      "kolor": [
+        1.0,
+        0.3,
+        0.1
+      ],
+      "pozycja": [
+        0.0,
+        2.0,
+        -10.0
+      ],
+      "promien": 2.5,
+      "lustrzanosc": 0.0,
+      "moc_emisji": 3.0,
+      "metalicznosc": 0.0
+    },
+    {
+      "typ": "Kula",
+      "kolor": [
+        1.0,
+        0.8,
+        0.2
+      ],
+      "pozycja": [
+        -4.0,
+        1.0,
+        -8.0
+      ],
+      "promien": 1.5,
+      "lustrzanosc": 0.85,
+      "moc_emisji": 0.0,
+      "metalicznosc": 1.0
+    },
+    {
+      "typ": "Kula",
+      "kolor": [
+        0.9,
+        0.9,
+        0.9
+      ],
+      "pozycja": [
+        4.0,
+        1.5,
+        -12.0
+      ],
+      "promien": 2.0,
+      "lustrzanosc": 1.0,
+      "moc_emisji": 0.0,
+      "metalicznosc": 1.0
+    },
+    {
+      "typ": "Kula",
+      "kolor": [
+        0.1,
+        0.8,
+        0.4
+      ],
+      "pozycja": [
+        -1.5,
+        0.5,
+        -6.0
+      ],
+      "promien": 1.0,
+      "lustrzanosc": 0.6,
+      "moc_emisji": 0.0,
+      "metalicznosc": 0.3
+    },
+    {
+      "typ": "Kula",
+      "kolor": [
+        0.6,
+        0.1,
+        0.8
+      ],
+      "pozycja": [
+        2.5,
+        0.7,
+        -7.0
+      ],
+      "promien": 1.2,
+      "lustrzanosc": 0.2,
+      "moc_emisji": 0.0,
+      "metalicznosc": 0.0
+    },
+    {
+      "typ": "Szescian",
+      "kolor": [
+        0.2,
+        0.6,
+        0.8
+      ],
+      "pozycja": [
+        6.0,
+        2.5,
+        -6.0
+      ],
+      "polowa_boku": 1.5,
+      "lustrzanosc": 0.5,
+      "moc_emisji": 0.0,
+      "metalicznosc": 0.5
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 #include "Bryly.h"
+#include "json.hpp"
 
 #include <cmath>
 #include <vector>
@@ -6,25 +7,36 @@
 #include <sstream>
 
 
-std::unique_ptr<Obiekt3D> Kula::kreator(const Parametry_obiektow &parametry){
+std::unique_ptr<Obiekt3D> Kula::kreator(const nlohmann::json &dane){
+    Wektor3D pozycja(dane["pozycja"][0], dane["pozycja"][1], dane["pozycja"][2]);
+    Wektor3D kolor(dane["kolor"][0], dane["kolor"][1], dane["kolor"][2]);
+    
+    
     return std::make_unique<Kula>(
-        parametry.kolor.value(), 
-        parametry.pozycja.value(), 
-        parametry.rozmiar.value(), 
-        parametry.lustrzanosc.value(),
-        parametry.metalicznosc.value(), 
-        parametry.moc_emisji.value());
+        kolor,
+        pozycja,
+        dane["promien"],
+        dane.value("lustrzanosc", 0.0f),
+        dane.value("metalicznosc", 0.0f),
+        dane.value("moc_emisji", 0.0f)
+    );
+
 }
 
-std::unique_ptr<Obiekt3D> Szescian::kreator(const Parametry_obiektow &parametry){
+std::unique_ptr<Obiekt3D> Szescian::kreator(const nlohmann::json &dane){
+    Wektor3D pozycja(dane["pozycja"][0], dane["pozycja"][1], dane["pozycja"][2]);
+    Wektor3D kolor(dane["kolor"][0], dane["kolor"][1], dane["kolor"][2]);
+    
+    
     return std::make_unique<Szescian>(
-        parametry.kolor.value(), 
-        parametry.pozycja.value(), 
-        parametry.rozmiar.value(), 
-        parametry.lustrzanosc.value(),
-        parametry.metalicznosc.value(), 
-        parametry.moc_emisji.value()
+        kolor,
+        pozycja,
+        dane["polowa_boku"],
+        dane.value("lustrzanosc", 0.0f),
+        dane.value("metalicznosc", 0.0f),
+        dane.value("moc_emisji", 0.0f)
     );
+
 }
 
 bool Kula::sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, float t_min, float t_max) const {

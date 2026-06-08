@@ -3,7 +3,7 @@
 #include "Bryly.h"
 
 
-using KreatorObiektu3D = std::unique_ptr<Obiekt3D>(*)(const Parametry_obiektow&);
+using KreatorObiektu3D = std::unique_ptr<Obiekt3D>(*)(const nlohmann::json&);
 
 
 
@@ -18,7 +18,10 @@ public:
         nazwy_[nastepne_id_] = nazwa;
         nastepne_id_ ++;
     }
-    static std::unique_ptr<Obiekt3D> utworz(std::string nazwa, Parametry_obiektow &parametry);
+    static std::unique_ptr<Obiekt3D> utworz(std::string nazwa,const nlohmann::json &dane);
 };
 
-bool wczytaj_obiekty(std::vector<std::unique_ptr<Obiekt3D>> &obiekty,int &liczba_rdzeni);
+bool wczytaj_scene(const std::string& sciezka, 
+                   std::vector<std::unique_ptr<Obiekt3D>>& obiekty, 
+                   std::vector<Zrodlo_swiatla>& swiatla, 
+                   int& liczba_rdzeni);

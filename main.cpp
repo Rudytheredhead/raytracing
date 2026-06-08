@@ -40,10 +40,10 @@ int main() {
     FabrykaObiektow::rejestruj(&Kula::kreator,"Kula");
     FabrykaObiektow::rejestruj(&Szescian::kreator,"Szescian");
     int liczba_watkow=0;
-
+    std::string sciezka_do_sceny = "parametry_wejsciowe.json" ;
   
 
-    if(!wczytaj_obiekty(obiekty,liczba_watkow)){return 1;}
+    
     
     
     std::vector<Zrodlo_swiatla> swiatla;
@@ -55,11 +55,13 @@ int main() {
     };
     czolowka.kat_swiecenia = 0.8f;
     swiatla.push_back(czolowka);
+    if(!wczytaj_scene(sciezka_do_sceny, obiekty, swiatla, liczba_watkow ) ){return 1;}
+
     bool czy_czolowka_jest_wlaczona = true;
     Zrodlo_swiatla swiatlo1 {
         Wektor3D(0.0f, 10.0f, -5.0f), Wektor3D(1.0f, 1.0f, 1.0f), 50.0f, Wektor3D(0.0f, -1.0f, 0.0f), -2.0f};
     
-    swiatla.push_back(swiatlo1);
+   // swiatla.push_back(swiatlo1);
 
     Kamera gracz(Wektor3D(0.0f,0.0f,0.0f));
 
