@@ -1,3 +1,7 @@
+/**
+ * @file main.cpp
+ * @brief Główna pętla gry odpowiedzialna za inicjalizację SFML, silnika oraz obsługę zdarzeń.
+ */
 #include <SFML/Graphics.hpp>
 #include "Matematyka.h"
 #include "Bryly.h"
@@ -61,8 +65,7 @@ int main() {
     Zrodlo_swiatla swiatlo1 {
         Wektor3D(0.0f, 10.0f, -5.0f), Wektor3D(1.0f, 1.0f, 1.0f), 50.0f, Wektor3D(0.0f, -1.0f, 0.0f), -2.0f};
     
-   // swiatla.push_back(swiatlo1);
-
+   
     Kamera gracz(Wektor3D(0.0f,0.0f,0.0f));
 
     Wektor3D kamera_copy = gracz.getPozycja();

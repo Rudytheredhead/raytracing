@@ -1,3 +1,7 @@
+/**
+ * @file Strukury.h
+ * @brief Definicje podstawowych struktur danych, stałych i parametrów konfiguracyjnych silnika.
+ */
 #pragma once
 #include "Wektor3D.h"
 #include <vector>
@@ -18,11 +22,21 @@ const float ROZMIAR_POSTACI = 0.5f;
 
 
 const float MOC_CZOLOWKI =2.0f;
+
+/**
+ * @struct Uklad_wspolrzednych
+ * @brief Reprezentacja lokalnego układu współrzędnych (przestrzeni kamery).
+ */
 struct Uklad_wspolrzednych {
     Wektor3D W;
     Wektor3D U;
     Wektor3D V;
 };
+
+/**
+ * @struct Zrodlo_swiatla
+ * @brief Dane opisujące pojedyncze źródło światła na scenie.
+ */
 struct Zrodlo_swiatla {
     Wektor3D srodek;
     Wektor3D kolor;
@@ -31,6 +45,10 @@ struct Zrodlo_swiatla {
     float kat_swiecenia; 
 };
 
+/**
+ * @struct KontekstWatkow
+ * @brief Bufory robocze oraz lokalne kopie danych wymagane przez wątki renderujące.
+ */
 struct KontekstWatkow{
     std::vector<sf::Uint8> bufor_roboczy;
     std::vector<sf::Uint8> post_procesing_bufor;
@@ -50,10 +68,19 @@ struct WynikOswietlenia {
     float maska_blasku;
 };
 
+/**
+ * @struct Promien
+ * @brief Promień (ray) wypuszczany w przestrzeń.
+ */
 struct Promien {
     Wektor3D kierunek;
     Wektor3D poczatek;
 };
+
+/**
+ * @struct Parametry_obiektow
+ * @brief Zbiór opcjonalnych parametrów wczytywanych z pliku konfiguracyjnego dla brył.
+ */
 struct Parametry_obiektow{
     std::optional<Wektor3D> kolor;
     std::optional<Wektor3D> pozycja;
@@ -64,6 +91,10 @@ struct Parametry_obiektow{
 
 };
 
+/**
+ * @struct WynikZdarzenia
+ * @brief Informacje zebrane po trafieniu promienia w powierzchnię obiektu.
+ */
 struct WynikZdarzenia {
     bool trafienie;
     float t;
@@ -75,4 +106,3 @@ struct WynikZdarzenia {
     float moc_emisji;
     float metalicznosc;
 };
-

@@ -1,3 +1,7 @@
+/**
+ * @file Kamera.h
+ * @brief Implementacja wirtualnej kamery będącej jednocześnie fizycznym graczem w środowisku.
+ */
 #pragma once
 #include "Wektor3D.h"
 #include"Wektor3D.h"
@@ -12,6 +16,10 @@
 
 
 
+/**
+ * @class Kamera
+ * @brief Klasa zarządzająca pozycją oraz orientacją gracza w przestrzeni na podstawie wejścia.
+ */
 class Kamera{
 private:
     Wektor3D przod_;
@@ -31,8 +39,14 @@ private:
 public:
     Kamera(Wektor3D pozyja);
 
+    /**
+     * @brief Aktualizuje orientację kamery na podstawie przemieszczenia kursora.
+     */
     void obsluzMysz(float dx, float dy);
 
+    /**
+     * @brief Aktualizuje logikę poruszania się i kolizji względem delta time.
+     */
     void aktualizuj(float deltaTime, const std::vector<std::unique_ptr<Obiekt3D>> &obiekty );
     Wektor3D getPozycja() const;
     Wektor3D getCel() const;

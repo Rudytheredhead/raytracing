@@ -15,4 +15,3 @@ std::istream& operator>>(std::istream& is, Wektor3D& wektor) {
     is >> wektor.z_;
     return is;
 }
-

@@ -1,3 +1,7 @@
+/**
+ * @file Raytracer.h
+ * @brief Implementacja logiki śledzenia promieni i podziału zadań na wątki robocze.
+ */
 #pragma once
 #include <vector>
 #include "Matematyka.h"
@@ -9,6 +13,10 @@
 #include <atomic>
 #include <memory>
 
+/**
+ * @class Raytracer
+ * @brief Odpowiada za obliczenia dla każdego piksela oraz koordynację wątków roboczych.
+ */
 class Raytracer{
 private:
     int dlugosc_;
@@ -36,6 +44,10 @@ private:
 public:
     Raytracer(int dlugosc, int liczbaWatkow);
     ~Raytracer();
+    
+    /**
+     * @brief Konfiguruje i aktywuje pulę wątków.
+     */
     void uruchomWatki(
         Wektor3D &kamera,
         std::mutex &kamera_mutex,

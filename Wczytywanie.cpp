@@ -40,7 +40,7 @@ bool sprawdzenie_parametrow(const Parametry_obiektow &parametry){
 bool wczytaj_scene(const std::string& sciezka, 
                    std::vector<std::unique_ptr<Obiekt3D>>& obiekty, 
                    std::vector<Zrodlo_swiatla>& swiatla, 
-                   int& liczba_rdzeni) { // Przekazujemy przez referencję
+                   int& liczba_rdzeni) { 
                    
     std::ifstream plik(sciezka);
     if (!plik.is_open()) return false;
@@ -85,7 +85,7 @@ bool wczytaj_scene(const std::string& sciezka,
         }
     }
 
-    // 3. Wczytywanie obiektów
+    
     if (j.contains("obiekty")) {
         for (const auto& element : j["obiekty"]) {
             std::string typ = element["typ"];

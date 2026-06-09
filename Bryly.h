@@ -1,3 +1,7 @@
+/**
+ * @file Bryly.h
+ * @brief Deklaracje klas dla abstrakcyjnego obiektu 3D oraz konkretnych brył: Kula, Szescian.
+ */
 #pragma once
 #include "Wektor3D.h"
 #include "Strukury.h"
@@ -13,19 +17,35 @@
 
 
 
+/**
+ * @class Obiekt3D
+ * @brief Klasa abstrakcyjna będąca interfejsem dla wszystkich brył renderowanych na scenie.
+ */
 class Obiekt3D {
 protected:
     Wektor3D kolor_;
 public:
     Obiekt3D(Wektor3D kolor): kolor_(kolor) {}
     virtual ~Obiekt3D() = default;
+    
+    /**
+     * @brief Zwraca informację o tym, czy podany promień przeciął obiekt.
+     */
     virtual bool sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, float t_min, float t_max) const = 0;
+    
+    /**
+     * @brief Sprawdza i obsługuje fizyczną kolizję bryły z pozycją gracza.
+     */
     virtual void kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci)=0;
     void test(){std::cout<<kolor_;};
     
 };
 
 
+/**
+ * @class Kula
+ * @brief Implementacja sfery, posiada środek i promień.
+ */
 class Kula : public Obiekt3D {
 private:
     Wektor3D srodek_;
@@ -46,6 +66,10 @@ public:
     ~Kula() = default;
 };
 
+/**
+ * @class Szescian
+ * @brief Implementacja sześcianu wyrównanego do osi układu (AABB).
+ */
 class Szescian : public Obiekt3D {
 private:
     Wektor3D srodek_;
@@ -62,4 +86,3 @@ public:
     bool sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, float t_min, float t_max) const override;
     virtual void kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci) override;
 };
-

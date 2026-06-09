@@ -1,8 +1,16 @@
+/**
+ * @file Wektor3D.h
+ * @brief Implementacja wektora w przestrzeni trójwymiarowej.
+ */
 #ifndef A_h
 #define A_h
 #include <iostream>
-#include <cmath> // Konieczne do działania std::sqrt()
+#include <cmath> 
 
+/**
+ * @class Wektor3D
+ * @brief Klasa odpowiedzialna za reprezentację wektora i operacje na nim (dodawanie, mnożenie, odbicie).
+ */
 class Wektor3D {
 private:
     float x_, y_, z_;
@@ -36,13 +44,8 @@ public:
 
 };
 
-// Zastepstwo dla funkcji mix z GLSL
 Wektor3D mieszaj(const Wektor3D& x, const Wektor3D& y, float a);
 
-
-// =========================================================================
-// DOKŁADNE KOPIE FUNKCJI Z PLIKU Wektor3D.cpp (Z DODANYM SŁOWEM 'inline')
-// =========================================================================
 
 inline Wektor3D::Wektor3D(float x, float y, float z) : x_(x), y_(y), z_(z) {}
 

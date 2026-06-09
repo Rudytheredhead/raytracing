@@ -1,3 +1,7 @@
+/**
+ * @file Matematyka.h
+ * @brief Obliczenia globalne związane z generowaniem promieni oświetleniem i postprocessingiem.
+ */
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Wektor3D.h"

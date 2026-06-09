@@ -188,7 +188,7 @@ void Raytracer::watekRoboczy (
                         Wektor3D zabarwienie_odbicia = mieszaj(czyte_odbicie, wyniki.kolor, wyniki.metalicznosc);
 
                         mnoznik_odbicia = wyniki.lustrzanosc*mnoznik_odbicia.przemnoz(zabarwienie_odbicia);
-                        //std::cout<<wyniki.metalicznosc;
+                        
                         
 
                     }
@@ -202,7 +202,7 @@ void Raytracer::watekRoboczy (
 
                 
                 
-                //if( kolor_powierzchni.x()!=0.0f) std::cout<<kolor_powierzchni;
+                
                 int r = std::clamp(static_cast<int>((kolor_powierzchni.x()) * 255.0f), 0, 255);
                 int g = std::clamp(static_cast<int>((kolor_powierzchni.y()) * 255.0f), 0, 255);
                 int b = std::clamp(static_cast<int>((kolor_powierzchni.z()) * 255.0f), 0, 255);

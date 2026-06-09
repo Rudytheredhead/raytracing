@@ -30,7 +30,7 @@ void Kamera::obsluzMysz(float dx, float dy) {
 }
 
 void Kamera::aktualizuj(float deltaTime, const std::vector<std::unique_ptr<Obiekt3D>>& obiekty) {
-    // 1. Obliczanie kierunków ruchu dla WSAD (płaskie)
+    
     Wektor3D przod_ruchu(-std::sin(obrot_na_boki_), 0.0f, -std::cos(obrot_na_boki_));
     przod_ruchu.normalizuj();
     Wektor3D prawo = przod_ruchu % gora_;
@@ -38,13 +38,13 @@ void Kamera::aktualizuj(float deltaTime, const std::vector<std::unique_ptr<Obiek
 
     Wektor3D przesuniecie(0.0f, 0.0f, 0.0f);
 
-    // 2. Obsługa klawiatury
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) przesuniecie = przesuniecie + predkosc_chodzenia_ * deltaTime * prawo;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) przesuniecie = przesuniecie - predkosc_chodzenia_ * deltaTime * prawo;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) przesuniecie = przesuniecie + predkosc_chodzenia_ * deltaTime * przod_ruchu;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) przesuniecie = przesuniecie - predkosc_chodzenia_ * deltaTime * przod_ruchu;
     
-    // 3. Grawitacja i skakanie
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && czy_stoi_na_ziemi_) {
         wektor_predkosci_ = wektor_predkosci_ + Wektor3D(0.0f, 10.0f, 0.0f);
         czy_stoi_na_ziemi_ = false;
@@ -83,7 +83,6 @@ void Kamera::aktualizuj(float deltaTime, const std::vector<std::unique_ptr<Obiek
 
 }
 
-// Implementacja getterów
 Wektor3D Kamera::getPozycja() const { return pozycja_; }
 Wektor3D Kamera::getCel() const { return pozycja_ + przod_; }
 Wektor3D Kamera::getGora() const { return gora_; }

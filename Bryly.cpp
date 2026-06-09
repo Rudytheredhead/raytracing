@@ -67,7 +67,7 @@ bool Kula::sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki, fl
     wyniki.kolor = kolor_;
     wyniki.trafienie = true;
 
-    // Odbicie kierunku prosto z GPU
+    
     Wektor3D idealne_odbicie = promien.kierunek.odbij(wyniki.wektor_normalny);
     idealne_odbicie.normalizuj();
 
@@ -112,7 +112,7 @@ bool Szescian::sprawdz_trafienie(const Promien & promien, WynikZdarzenia& wyniki
     Wektor3D box_min = srodek_ + (-polowa_boku_);
     Wektor3D box_max = srodek_ + polowa_boku_;
 
-    //nie trzaba bac sie dzielenia przez 0 - floaty zwracaja +-inf ktore potem zostaje "zjedzone" przez max()
+    
     Wektor3D inv_dir(1.0f / promien.kierunek.x(), 1.0f / promien.kierunek.y(), 1.0f / promien.kierunek.z());
 
     float t1 = (box_min.x() - promien.poczatek.x()) * inv_dir.x();
@@ -187,4 +187,3 @@ void Szescian::kolizja_z_postacia(Wektor3D &pozPostaci, float promienPostaci) {
         }
     }
 }
-

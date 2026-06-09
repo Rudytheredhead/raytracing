@@ -50,14 +50,14 @@ WynikOswietlenia oblicz_oswietlenie(WynikZdarzenia& zderzenie, const std::vector
         
         for (const auto& obiekt : obiekty) {
             if (obiekt->sprawdz_trafienie(promien_cienia, wyniki_cien, t_min, odleglosc_od_swiatla)) {
-                //std::cout<<"prawda"<<std::endl;
+                
                 w_cieniu = true;
                 break;
             }
         }
         
         if (!w_cieniu) {
-            //std::cout<<"nie w cieniu"<<std::endl;
+            
             if (swiatlo.kat_swiecenia > -1.0f) {
                 moc_swiatla_od_kata = 0.0f;
                 Wektor3D ujemny_kierunek =  -1.0f*kierunek_do_swiatla ;
@@ -79,8 +79,8 @@ WynikOswietlenia oblicz_oswietlenie(WynikZdarzenia& zderzenie, const std::vector
     WynikOswietlenia wynik;
     Wektor3D ambient(0.05f, 0.05f, 0.05f);
     wynik.kolor_matowy = zderzenie.kolor.przemnoz(calkowite_energia_swiatla+ambient);
-    //std::cout<<calkowite_energia_swiatla;
-    // Odpowiednik GPU zapisujacego '.a' z mnozenia vec3 * float jako pierwszej zmiennej z vec3 (tutaj rzutowane na x dla pewnosci)
+    
+    
     wynik.maska_blasku = calkowite_energia_swiatla.x() * zderzenie.lustrzanosc; 
     
     return wynik;
@@ -147,4 +147,3 @@ void rozmycie_jasnych_punktow_w_pionie(std::vector<sf::Uint8> &pixels_odczyt,std
 
     }
 }
-

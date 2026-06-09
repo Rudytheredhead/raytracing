@@ -1,3 +1,7 @@
+/**
+ * @file Wczytywanie.h
+ * @brief Odczytywanie zasobów z plików konfiguracyjnych JSON.
+ */
 #pragma once
 #include <memory>
 #include "Bryly.h"
@@ -7,6 +11,10 @@ using KreatorObiektu3D = std::unique_ptr<Obiekt3D>(*)(const nlohmann::json&);
 
 
 
+/**
+ * @class FabrykaObiektow
+ * @brief Statyczna fabryka rejestrująca i alokująca obiekty z danych wejściowych JSON.
+ */
 class FabrykaObiektow{
 private:
     static std::map<unsigned,KreatorObiektu3D> kreatory_;
