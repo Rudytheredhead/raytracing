@@ -1,0 +1,35 @@
+\doxysection{Wczytywanie.\+h File Reference}
+\hypertarget{Wczytywanie_8h}{}\label{Wczytywanie_8h}\index{Wczytywanie.h@{Wczytywanie.h}}
+
+
+Odczytywanie zasobów z plików konfiguracyjnych JSON.  
+
+
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include "{}Bryly.\+h"{}}\newline
+Include dependency graph for Wczytywanie.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classFabrykaObiektow}{Fabryka\+Obiektow}}
+\begin{DoxyCompactList}\small\item\em Statyczna fabryka rejestrująca i alokująca obiekty z danych wejściowych JSON. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{Wczytywanie_8h_a17260f9cdc0e9e6f881d7daae56d9edf}\label{Wczytywanie_8h_a17260f9cdc0e9e6f881d7daae56d9edf} 
+using {\bfseries Kreator\+Obiektu3D} = std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classObiekt3D}{Obiekt3D}} $>$(\texorpdfstring{$\ast$}{*})(const nlohmann\+::json \&)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{Wczytywanie_8h_a525f0b55d94d86f538fc390b39ff8b57}\label{Wczytywanie_8h_a525f0b55d94d86f538fc390b39ff8b57} 
+bool {\bfseries wczytaj\+\_\+scene} (const std\+::string \&sciezka, std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classObiekt3D}{Obiekt3D}} $>$ $>$ \&obiekty, std\+::vector$<$ \mbox{\hyperlink{structZrodlo__swiatla}{Zrodlo\+\_\+swiatla}} $>$ \&swiatla, int \&liczba\+\_\+rdzeni)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Odczytywanie zasobów z plików konfiguracyjnych JSON. 
+

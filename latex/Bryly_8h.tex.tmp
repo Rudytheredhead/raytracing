@@ -1,0 +1,32 @@
+\doxysection{Bryly.\+h File Reference}
+\hypertarget{Bryly_8h}{}\label{Bryly_8h}\index{Bryly.h@{Bryly.h}}
+
+
+Deklaracje klas dla abstrakcyjnego obiektu 3D oraz konkretnych brył\+: \doxylink{classKula}{Kula}, \doxylink{classSzescian}{Szescian}.  
+
+
+{\ttfamily \#include "{}Wektor3\+D.\+h"{}}\newline
+{\ttfamily \#include "{}Strukury.\+h"{}}\newline
+{\ttfamily \#include "{}json.\+hpp"{}}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+Include dependency graph for Bryly.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classObiekt3D}{Obiekt3D}}
+\begin{DoxyCompactList}\small\item\em Klasa abstrakcyjna będąca interfejsem dla wszystkich brył renderowanych na scenie. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classKula}{Kula}}
+\begin{DoxyCompactList}\small\item\em Implementacja sfery, posiada środek i promień. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classSzescian}{Szescian}}
+\begin{DoxyCompactList}\small\item\em Implementacja sześcianu wyrównanego do osi układu (AABB). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Deklaracje klas dla abstrakcyjnego obiektu 3D oraz konkretnych brył\+: \doxylink{classKula}{Kula}, \doxylink{classSzescian}{Szescian}. 
+

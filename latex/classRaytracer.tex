@@ -1,0 +1,32 @@
+\doxysection{Raytracer Class Reference}
+\hypertarget{classRaytracer}{}\label{classRaytracer}\index{Raytracer@{Raytracer}}
+
+
+Odpowiada za obliczenia dla każdego piksela oraz koordynację wątków roboczych.  
+
+
+
+
+{\ttfamily \#include $<$Raytracer.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classRaytracer_a48e2236f2d04b3c064207fd9f1fbac23}\label{classRaytracer_a48e2236f2d04b3c064207fd9f1fbac23} 
+{\bfseries Raytracer} (int dlugosc, int liczba\+Watkow)
+\item 
+\Hypertarget{classRaytracer_acef808fec8bbc8a4acd28bfe620da9d8}\label{classRaytracer_acef808fec8bbc8a4acd28bfe620da9d8} 
+void {\bfseries uruchom\+Watki} (\mbox{\hyperlink{classWektor3D}{Wektor3D}} \&kamera, std\+::mutex \&kamera\+\_\+mutex, \mbox{\hyperlink{classWektor3D}{Wektor3D}} \&cel, \mbox{\hyperlink{classWektor3D}{Wektor3D}} \&gora, std\+::vector$<$ \mbox{\hyperlink{structZrodlo__swiatla}{Zrodlo\+\_\+swiatla}} $>$ \&swiatla, std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classObiekt3D}{Obiekt3D}} $>$ $>$ \&obiekty, float \&odleglosc\+\_\+od\+\_\+ekranu)
+\begin{DoxyCompactList}\small\item\em Konfiguruje i aktywuje pulę wątków. \end{DoxyCompactList}\item 
+\Hypertarget{classRaytracer_af1f09261df253aeaeb5d5afbc521d792}\label{classRaytracer_af1f09261df253aeaeb5d5afbc521d792} 
+void {\bfseries aktualizuj\+Teksture} (sf\+::\+Texture \&tekstura)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Odpowiada za obliczenia dla każdego piksela oraz koordynację wątków roboczych. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Raytracer_8h}{Raytracer.\+h}}\item 
+Raytracer.\+cpp\end{DoxyCompactItemize}

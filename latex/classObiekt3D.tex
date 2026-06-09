@@ -1,0 +1,77 @@
+\doxysection{Obiekt3D Class Reference}
+\hypertarget{classObiekt3D}{}\label{classObiekt3D}\index{Obiekt3D@{Obiekt3D}}
+
+
+Klasa abstrakcyjna będąca interfejsem dla wszystkich brył renderowanych na scenie.  
+
+
+
+
+{\ttfamily \#include $<$Bryly.\+h$>$}
+
+
+
+Inheritance diagram for Obiekt3D\+:
+% FIG 0
+
+
+Collaboration diagram for Obiekt3D\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classObiekt3D_a7e8fd36e9ff2a6169ede34d9103124f7}\label{classObiekt3D_a7e8fd36e9ff2a6169ede34d9103124f7} 
+{\bfseries Obiekt3D} (\mbox{\hyperlink{classWektor3D}{Wektor3D}} kolor)
+\item 
+virtual bool \mbox{\hyperlink{classObiekt3D_a45a91d9b3c85dd43f68db6bbfa1b6ec4}{sprawdz\+\_\+trafienie}} (const \mbox{\hyperlink{structPromien}{Promien}} \&promien, \mbox{\hyperlink{structWynikZdarzenia}{Wynik\+Zdarzenia}} \&wyniki, float t\+\_\+min, float t\+\_\+max) const =0
+\begin{DoxyCompactList}\small\item\em Zwraca informację o tym, czy podany promień przeciął obiekt. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classObiekt3D_a056cf71c641a0a3f062c0b7b42438609}{kolizja\+\_\+z\+\_\+postacia}} (\mbox{\hyperlink{classWektor3D}{Wektor3D}} \&poz\+Postaci, float promien\+Postaci)=0
+\begin{DoxyCompactList}\small\item\em Sprawdza i obsługuje fizyczną kolizję bryły z pozycją gracza. \end{DoxyCompactList}\item 
+\Hypertarget{classObiekt3D_ac9b9b3a69aee79f7f9ab6f2209b1ff1e}\label{classObiekt3D_ac9b9b3a69aee79f7f9ab6f2209b1ff1e} 
+void {\bfseries test} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classObiekt3D_ad357b8c77b3ddea8522f2285020a5c9c}\label{classObiekt3D_ad357b8c77b3ddea8522f2285020a5c9c} 
+\mbox{\hyperlink{classWektor3D}{Wektor3D}} {\bfseries kolor\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klasa abstrakcyjna będąca interfejsem dla wszystkich brył renderowanych na scenie. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classObiekt3D_a056cf71c641a0a3f062c0b7b42438609}\label{classObiekt3D_a056cf71c641a0a3f062c0b7b42438609} 
+\index{Obiekt3D@{Obiekt3D}!kolizja\_z\_postacia@{kolizja\_z\_postacia}}
+\index{kolizja\_z\_postacia@{kolizja\_z\_postacia}!Obiekt3D@{Obiekt3D}}
+\doxysubsubsection{\texorpdfstring{kolizja\_z\_postacia()}{kolizja\_z\_postacia()}}
+{\footnotesize\ttfamily virtual void Obiekt3\+D\+::kolizja\+\_\+z\+\_\+postacia (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWektor3D}{Wektor3D}} \&}]{poz\+Postaci,  }\item[{float}]{promien\+Postaci }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Sprawdza i obsługuje fizyczną kolizję bryły z pozycją gracza. 
+
+
+
+Implemented in \mbox{\hyperlink{classKula_ade614e4d30a566c6b3fe405046ed1a3b}{Kula}}, and \mbox{\hyperlink{classSzescian_a19e0453e7289651008e1ec3026723001}{Szescian}}.
+
+\Hypertarget{classObiekt3D_a45a91d9b3c85dd43f68db6bbfa1b6ec4}\label{classObiekt3D_a45a91d9b3c85dd43f68db6bbfa1b6ec4} 
+\index{Obiekt3D@{Obiekt3D}!sprawdz\_trafienie@{sprawdz\_trafienie}}
+\index{sprawdz\_trafienie@{sprawdz\_trafienie}!Obiekt3D@{Obiekt3D}}
+\doxysubsubsection{\texorpdfstring{sprawdz\_trafienie()}{sprawdz\_trafienie()}}
+{\footnotesize\ttfamily virtual bool Obiekt3\+D\+::sprawdz\+\_\+trafienie (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structPromien}{Promien}} \&}]{promien,  }\item[{\mbox{\hyperlink{structWynikZdarzenia}{Wynik\+Zdarzenia}} \&}]{wyniki,  }\item[{float}]{t\+\_\+min,  }\item[{float}]{t\+\_\+max }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Zwraca informację o tym, czy podany promień przeciął obiekt. 
+
+
+
+Implemented in \mbox{\hyperlink{classKula_a0be15c1f6b55e21e4967b0778cb1ad71}{Kula}}, and \mbox{\hyperlink{classSzescian_ad81140d3a0c5d83c3ef84441789b3e4d}{Szescian}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Bryly_8h}{Bryly.\+h}}\end{DoxyCompactItemize}

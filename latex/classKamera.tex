@@ -1,0 +1,44 @@
+\doxysection{Kamera Class Reference}
+\hypertarget{classKamera}{}\label{classKamera}\index{Kamera@{Kamera}}
+
+
+Klasa zarządzająca pozycją oraz orientacją gracza w przestrzeni na podstawie wejścia.  
+
+
+
+
+{\ttfamily \#include $<$Kamera.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classKamera_ab13c7561fb329fd1f792123ead62a566}\label{classKamera_ab13c7561fb329fd1f792123ead62a566} 
+{\bfseries Kamera} (\mbox{\hyperlink{classWektor3D}{Wektor3D}} pozyja)
+\item 
+\Hypertarget{classKamera_aaf3f79dc819286ab37693950d2b57047}\label{classKamera_aaf3f79dc819286ab37693950d2b57047} 
+void {\bfseries obsluz\+Mysz} (float dx, float dy)
+\begin{DoxyCompactList}\small\item\em Aktualizuje orientację kamery na podstawie przemieszczenia kursora. \end{DoxyCompactList}\item 
+\Hypertarget{classKamera_a416fdacd40d49b5786c120df4f5226ff}\label{classKamera_a416fdacd40d49b5786c120df4f5226ff} 
+void {\bfseries aktualizuj} (float delta\+Time, const std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classObiekt3D}{Obiekt3D}} $>$ $>$ \&obiekty)
+\begin{DoxyCompactList}\small\item\em Aktualizuje logikę poruszania się i kolizji względem delta time. \end{DoxyCompactList}\item 
+\Hypertarget{classKamera_a9ae0a72b301161ffb96aa5ee275ffeb0}\label{classKamera_a9ae0a72b301161ffb96aa5ee275ffeb0} 
+\mbox{\hyperlink{classWektor3D}{Wektor3D}} {\bfseries get\+Pozycja} () const
+\item 
+\Hypertarget{classKamera_a3aa3d12588574cc6214092325c87391c}\label{classKamera_a3aa3d12588574cc6214092325c87391c} 
+\mbox{\hyperlink{classWektor3D}{Wektor3D}} {\bfseries get\+Cel} () const
+\item 
+\Hypertarget{classKamera_a40b3c51819c4456ce36709854bfe6d90}\label{classKamera_a40b3c51819c4456ce36709854bfe6d90} 
+\mbox{\hyperlink{classWektor3D}{Wektor3D}} {\bfseries get\+Gora} () const
+\item 
+\Hypertarget{classKamera_a3c995337e9adc6bc39e58de056ac077d}\label{classKamera_a3c995337e9adc6bc39e58de056ac077d} 
+\mbox{\hyperlink{classWektor3D}{Wektor3D}} {\bfseries get\+Przod} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klasa zarządzająca pozycją oraz orientacją gracza w przestrzeni na podstawie wejścia. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Kamera_8h}{Kamera.\+h}}\item 
+Kamera.\+cpp\end{DoxyCompactItemize}

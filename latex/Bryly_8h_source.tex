@@ -1,0 +1,72 @@
+\doxysection{Bryly.\+h}
+\hypertarget{Bryly_8h_source}{}\label{Bryly_8h_source}\mbox{\hyperlink{Bryly_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Wektor3D_8h}{Wektor3D.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Strukury_8h}{Strukury.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}json.hpp"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classObiekt3D}{Obiekt3D}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{classWektor3D}{Wektor3D}}\ kolor\_;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classObiekt3D}{Obiekt3D}}(\mbox{\hyperlink{classWektor3D}{Wektor3D}}\ kolor):\ kolor\_(kolor)\ \{\}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classObiekt3D}{\string~Obiekt3D}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classObiekt3D_a45a91d9b3c85dd43f68db6bbfa1b6ec4}{sprawdz\_trafienie}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structPromien}{Promien}}\ \&\ promien,\ \mbox{\hyperlink{structWynikZdarzenia}{WynikZdarzenia}}\&\ wyniki,\ \textcolor{keywordtype}{float}\ t\_min,\ \textcolor{keywordtype}{float}\ t\_max)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classObiekt3D_a056cf71c641a0a3f062c0b7b42438609}{kolizja\_z\_postacia}}(\mbox{\hyperlink{classWektor3D}{Wektor3D}}\ \&pozPostaci,\ \textcolor{keywordtype}{float}\ promienPostaci)=0;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ test()\{std::cout<<kolor\_;\};}
+\DoxyCodeLine{00041\ \ \ \ \ }
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classKula}{Kula}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classObiekt3D}{Obiekt3D}}\ \{}
+\DoxyCodeLine{00050\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{classWektor3D}{Wektor3D}}\ srodek\_;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{float}\ promien\_;\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{float}\ lustrzanosc\_;}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{float}\ metalicznosc\_;}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{float}\ moc\_emisji\_;}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classKula}{Kula}}(\mbox{\hyperlink{classWektor3D}{Wektor3D}}\ kolor,\ \mbox{\hyperlink{classWektor3D}{Wektor3D}}\ srodek,\ \textcolor{keywordtype}{float}\ promien,\ \textcolor{keywordtype}{float}\ lustrzanosc\ =\ 0.0f,\textcolor{keywordtype}{float}\ metalicznosc\ =0.0f,\ \textcolor{keywordtype}{float}\ moc\_emisji\ =\ 0.0f)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classObiekt3D}{Obiekt3D}}(kolor),\ srodek\_(srodek),\ promien\_(promien),\ lustrzanosc\_(lustrzanosc),metalicznosc\_(metalicznosc),\ moc\_emisji\_(moc\_emisji)\ \{\};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<Obiekt3D>\ kreator(\textcolor{keyword}{const}\ nlohmann::json\ \&dane);}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classKula_a0be15c1f6b55e21e4967b0778cb1ad71}{sprawdz\_trafienie}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structPromien}{Promien}}\ \&\ promien,\ \mbox{\hyperlink{structWynikZdarzenia}{WynikZdarzenia}}\&\ wyniki,\ \textcolor{keywordtype}{float}\ t\_min,\ \textcolor{keywordtype}{float}\ t\_max)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classKula_ade614e4d30a566c6b3fe405046ed1a3b}{kolizja\_z\_postacia}}(\mbox{\hyperlink{classWektor3D}{Wektor3D}}\ \&pozPostaci,\ \textcolor{keywordtype}{float}\ promienPostaci);}
+\DoxyCodeLine{00063\ \ \ \ \ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{classKula}{\string~Kula}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSzescian}{Szescian}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classObiekt3D}{Obiekt3D}}\ \{}
+\DoxyCodeLine{00074\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{classWektor3D}{Wektor3D}}\ srodek\_;}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{float}\ polowa\_boku\_;\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{float}\ lustrzanosc\_;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{float}\ metalicznosc\_;}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{float}\ moc\_emisji\_;}
+\DoxyCodeLine{00080\ \ \ \ \ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{classSzescian}{Szescian}}(\mbox{\hyperlink{classWektor3D}{Wektor3D}}\ kolor,\ \mbox{\hyperlink{classWektor3D}{Wektor3D}}\ srodek,\ \textcolor{keywordtype}{float}\ polowa\_boku,\ \textcolor{keywordtype}{float}\ lustrzanosc\ =\ 0.0f,\ \textcolor{keywordtype}{float}\ metalicznosc\ =\ 0.0f,\ \textcolor{keywordtype}{float}\ moc\_emisji\ =\ 0.0f)}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classObiekt3D}{Obiekt3D}}(kolor),\ srodek\_(srodek),\ polowa\_boku\_(polowa\_boku),\ lustrzanosc\_(lustrzanosc),\ metalicznosc\_(metalicznosc),\ moc\_emisji\_(moc\_emisji)\ \{\};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<Obiekt3D>\ kreator(\textcolor{keyword}{const}\ nlohmann::json\ \&dane);}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSzescian_ad81140d3a0c5d83c3ef84441789b3e4d}{sprawdz\_trafienie}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structPromien}{Promien}}\ \&\ promien,\ \mbox{\hyperlink{structWynikZdarzenia}{WynikZdarzenia}}\&\ wyniki,\ \textcolor{keywordtype}{float}\ t\_min,\ \textcolor{keywordtype}{float}\ t\_max)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSzescian_a19e0453e7289651008e1ec3026723001}{kolizja\_z\_postacia}}(\mbox{\hyperlink{classWektor3D}{Wektor3D}}\ \&pozPostaci,\ \textcolor{keywordtype}{float}\ promienPostaci)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00088\ \};}
+
+\end{DoxyCode}

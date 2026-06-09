@@ -1,0 +1,23 @@
+\doxysection{Matematyka.\+h}
+\hypertarget{Matematyka_8h_source}{}\label{Matematyka_8h_source}\mbox{\hyperlink{Matematyka_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Wektor3D_8h}{Wektor3D.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Bryly_8h}{Bryly.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Strukury_8h}{Strukury.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \mbox{\hyperlink{structUklad__wspolrzednych}{Uklad\_wspolrzednych}}\ obliczanie\_ukladu\_wspolrzednych(\textcolor{keyword}{const}\ \mbox{\hyperlink{classWektor3D}{Wektor3D}}\&\ kamera,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classWektor3D}{Wektor3D}}\ \&cel,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classWektor3D}{Wektor3D}}\ \&\ gora);}
+\DoxyCodeLine{00018\ \mbox{\hyperlink{classWektor3D}{Wektor3D}}\ oblicz\_kierunek\_promienia(\textcolor{keywordtype}{float}\ grid\_x,\ \textcolor{keywordtype}{float}\ grid\_y,\ \textcolor{keywordtype}{float}\ odleglosc\_od\_ekranu,\ \mbox{\hyperlink{structUklad__wspolrzednych}{Uklad\_wspolrzednych}}\ \&uklad);}
+\DoxyCodeLine{00019\ \mbox{\hyperlink{structWynikOswietlenia}{WynikOswietlenia}}\ oblicz\_oswietlenie(\mbox{\hyperlink{structWynikZdarzenia}{WynikZdarzenia}}\&\ zderzenie,\ \textcolor{keyword}{const}\ std::vector<Zrodlo\_swiatla>\&\ swiatla,\ \textcolor{keyword}{const}\ std::vector<std::unique\_ptr<Obiekt3D>>\&\ obiekty);}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{void}\ rozmycie\_jasnych\_punktow\_w\_pionie(std::vector<sf::Uint8>\ \&pixels\_odczyt,std::vector<sf::Uint8>\ \&pixels\_zapis,\textcolor{keywordtype}{int}\ start\_y\ ,\ \textcolor{keywordtype}{int}\ koniec\_y);}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ rozmycie\_jasnych\_punktow\_w\_poziomie(std::vector<sf::Uint8>\ \&pixels\_odczyt,std::vector<sf::Uint8>\ \&pixels\_zapis,\textcolor{keywordtype}{int}\ start\_y\ ,\ \textcolor{keywordtype}{int}\ koniec\_y);}
+
+\end{DoxyCode}

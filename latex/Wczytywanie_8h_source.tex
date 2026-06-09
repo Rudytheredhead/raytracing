@@ -1,0 +1,33 @@
+\doxysection{Wczytywanie.\+h}
+\hypertarget{Wczytywanie_8h_source}{}\label{Wczytywanie_8h_source}\mbox{\hyperlink{Wczytywanie_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Bryly_8h}{Bryly.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{using\ }KreatorObiektu3D\ =\ std::unique\_ptr<Obiekt3D>(*)(\textcolor{keyword}{const}\ nlohmann::json\&);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFabrykaObiektow}{FabrykaObiektow}}\{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ std::map<unsigned,KreatorObiektu3D>\ kreatory\_;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{static}\ std::map<unsigned,std::string>\ nazwy\_;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ nastepne\_id\_;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ rejestruj(KreatorObiektu3D\ kr,\ std::string\ nazwa)\{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ kreatory\_[nastepne\_id\_]\ =kr;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ nazwy\_[nastepne\_id\_]\ =\ nazwa;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ nastepne\_id\_\ ++;}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ std::unique\_ptr<Obiekt3D>\ utworz(std::string\ nazwa,\textcolor{keyword}{const}\ nlohmann::json\ \&dane);}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{bool}\ wczytaj\_scene(\textcolor{keyword}{const}\ std::string\&\ sciezka,\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::unique\_ptr<Obiekt3D>>\&\ obiekty,\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<Zrodlo\_swiatla>\&\ swiatla,\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\&\ liczba\_rdzeni);}
+
+\end{DoxyCode}
