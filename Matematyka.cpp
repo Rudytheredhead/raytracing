@@ -1,3 +1,7 @@
+/**
+ * @file Matematyka.cpp
+ * @brief Implementacja funkcji przestrzennych, cieniowania i postprocessingu (Bloom).
+ */
 #include "Wektor3D.h"
 #include "Matematyka.h"
 #include "Raytracer.h"

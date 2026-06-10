@@ -1,6 +1,17 @@
+/**
+ * @file Raytracer.cpp
+ * @brief Implementacja głównych pętli roboczych systemu śledzenia promieni.
+ * @details Zawiera logikę podziału obrazu na przestrzenne kafelki, przetwarzania przecięć (cieniowanie, 
+ * odbicia rekurencyjne) oraz koordynację barierą mechanizmu post-processingu (rozmycie / bloom).
+ */
 #include "Raytracer.h"
 #include "Matematyka.h"
 
+/**
+ * @brief Konstruktor alokujący pamięć na bufory pikseli i inicjujący barierę synchronizacyjną.
+ * @param dlugosc Wymiar krawędzi kwadratowego okna w pikselach.
+ * @param liczbaWatkow Ilość wątków w puli pracowniczej, dla której tworzona jest bariera.
+ */
 Raytracer::Raytracer(int dlugosc, int liczbaWatkow)
     :dlugosc_(dlugosc), liczbaWatkow_(liczbaWatkow), is_running_(true),nastepny_kafelek_(0) {
         pixels_.resize(dlugosc_*dlugosc_*4,0);
@@ -11,6 +22,9 @@ Raytracer::Raytracer(int dlugosc, int liczbaWatkow)
 
     }
 
+/**
+ * @brief Destruktor zamykający bezpiecznie wszystkie wątki.
+ */
 Raytracer::~Raytracer(){
     is_running_ = false;
     for(auto &watek:watki_){
@@ -20,6 +34,9 @@ Raytracer::~Raytracer(){
     }
 }
 
+/**
+ * @brief Tworzy systemowe obiekty wątków (std::thread) i przydziela im funkcję watekRoboczy.
+ */
 void Raytracer::uruchomWatki(
         Wektor3D &kamera,
         std::mutex &kamera_mutex,
@@ -46,12 +63,22 @@ void Raytracer::uruchomWatki(
 
 }
 
+/**
+ * @brief Bezpiecznie i z zachowaniem wzajemnego wykluczenia przekazuje wyliczony bufor do tekstury SFML.
+ */
 void Raytracer::aktualizujTeksture(sf::Texture &tekstura){
     std::lock_guard<std::mutex> lock(pixels_mutex_);
     tekstura.update(pixels_.data());
 }
 
 
+/**
+ * @brief Pętla wykonywana w obrębie każdego wątku renderującego.
+ * @details Procesuje fazy renderowania: 
+ * 1. Synchronizacja danych wejściowych (tylko główny wątek-0) 
+ * 2. Przeliczanie kafelków metodą path-tracing/ray-tracing (kolory matowe, odbicia specyficzne)
+ * 3. Fazowy post-processing z użyciem punktów synchronizacji (bariery) na całym wygenerowanym już w buforze obrazie.
+ */
 void Raytracer::watekRoboczy (
     int watek,
     Wektor3D& kamera,

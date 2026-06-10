@@ -1,6 +1,9 @@
 /**
  * @file main.cpp
- * @brief Główna pętla gry odpowiedzialna za inicjalizację SFML, silnika oraz obsługę zdarzeń.
+ * @brief Główna pętla programu odpowiedzialna za inicjalizację biblioteki SFML, silnika raytracingu oraz obsługę zdarzeń.
+ * @details Plik ten zawiera punkt wejścia do aplikacji. Inicjalizuje okno renderowania, przygotowuje scenę 3D (obiekty i światła) 
+ * za pomocą wczytywania z pliku JSON, konfiguruje kamerę i zarządza główną pętlą gry. Pętla ta zbiera dane wejściowe 
+ * od użytkownika (mysz, klawiatura), aktualizuje logikę sceny i zleca renderowanie do wielowątkowego Raytracera.
  */
 #include <SFML/Graphics.hpp>
 #include "Matematyka.h"
@@ -23,6 +26,12 @@
 #include <barrier>
 #include <functional>
 
+/**
+ * @brief Główna funkcja programu.
+ * @details Funkcja konfiguruje środowisko graficzne, ładuje zasoby sceny z pliku "parametry_wejsciowe.json", 
+ * uruchamia pulę wątków dla raytracera i obsługuje cykl życia okna (event loop).
+ * @return Zwraca 0 przy pomyślnym zakończeniu działania, 1 w przypadku błędu wczytywania sceny.
+ */
 int main() {
     sf::RenderWindow window(sf::VideoMode(DLUGOSC, DLUGOSC), "Okno SFML");
     window.setFramerateLimit(60); 

@@ -1,3 +1,7 @@
+/**
+ * @file Bryly.cpp
+ * @brief Implementacje matematycznych rzutowań promieni oraz detekcji kolizji dla konkretnych typów Brył.
+ */
 #include "Bryly.h"
 #include "json.hpp"
 

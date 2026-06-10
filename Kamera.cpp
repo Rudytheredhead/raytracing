@@ -1,3 +1,7 @@
+/**
+ * @file Kamera.cpp
+ * @brief Definicja zachowania wirtualnej kamery i fizyki gracza.
+ */
 #include "Kamera.h"
 #include <cmath>
 #include <algorithm>

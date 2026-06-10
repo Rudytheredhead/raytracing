@@ -1,3 +1,7 @@
+/**
+ * @file Wczytywanie.cpp
+ * @brief Implementacja mechanizmów budowy obiektów 3D z użyciem biblioteki nlohmann json.
+ */
 #include "Wczytywanie.h"
 
 #include <vector>
@@ -24,6 +28,11 @@ std::unique_ptr<Obiekt3D> FabrykaObiektow::utworz(std::string nazwa,const nlohma
     return nullptr;
 }
 
+/**
+ * @brief Weryfikuje czy niezbędne atrybuty dla standardowego obiektu są obecne.
+ * @param parametry Zestaw parametrów opcjonalnych.
+ * @return True jeśli wszystkie kluczowe parametry mają przypisaną wartość, false w przeciwnym razie.
+ */
 bool sprawdzenie_parametrow(const Parametry_obiektow &parametry){
 
     if(!parametry.kolor.has_value()) return false;

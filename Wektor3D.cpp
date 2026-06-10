@@ -1,3 +1,7 @@
+/**
+ * @file Wektor3D.cpp
+ * @brief Definicje operatorów strumieniowych dla klasy Wektor3D.
+ */
 #include "Wektor3D.h"
 #include <iostream>
 
