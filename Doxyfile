@@ -1,3 +1,4 @@
+
 # Doxyfile 1.9.8
 
 # This file describes the settings to be used by the documentation system
@@ -2861,3 +2862,36 @@ MSCGEN_TOOL            =
 # command).
 
 MSCFILE_DIRS           =
+
+# ==============================================================================
+# NOWOCZESNY WYGLĄD - NADPISANIE USTAWIEŃ
+# ==============================================================================
+
+# 1. Nawigacja i czysty układ (Drzewko boczne zamiast zakładek)
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+FULL_SIDEBAR           = NO
+HTML_TIMESTAMP         = NO
+
+# 2. Nowoczesna kolorystyka (przyjemny, chłodny niebieski)
+HTML_COLORSTYLE_HUE    = 209
+HTML_COLORSTYLE_SAT    = 255
+HTML_COLORSTYLE_GAMMA  = 113
+
+# 3. Zewnętrzny motyw Doxygen Awesome (ZALECANE!)
+# UWAGA: Aby to zadziałało, musisz pobrać pliki "doxygen-awesome.css" 
+# oraz "doxygen-awesome-sidebar-only.css" i wrzucić je do tego samego 
+# folderu co Doxyfile. Jeśli nie chcesz tego robić, usuń poniższą linijkę:
+HTML_EXTRA_STYLESHEET  = doxygen-awesome.css doxygen-awesome-sidebar-only.css
+
+# 4. Generowanie interaktywnych grafów klas i wywołań
+# UWAGA: Wymaga zainstalowanego w systemie narzędzia "Graphviz".
+# Jeśli go nie masz, możesz zmienić HAVE_DOT na NO.
+HAVE_DOT               = NO
+UML_LOOK               = YES
+UML_LIMIT_NUM_FIELDS   = 50
+TEMPLATE_RELATIONS     = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
